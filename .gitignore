@@ -1,0 +1,5 @@
+/.vscode
+/Backend/node_modules
+/Backend/dist
+/Backend/.env
+/Backend/ormconfig.json
