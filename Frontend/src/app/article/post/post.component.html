@@ -1,16 +1,7 @@
 <li class='card m-3'>
     <h2>{{ title }}</h2>
     <p> {{ content }}</p>
-
-    <!-- <p class="text-center">Publié le : {{ datePublication | date: 'short'}}</p> -->
-    <!-- <div class="d-flex justify-content-between">
-        <button (click)="onLike()"
-        [ngClass]="{'btn': true,
-                    'btn-success': like === 1}">like</button>
-        <button (click)="onDislike()"
-        [ngClass]="{'btn': true,
-        'btn-danger': dislike === 1}">Dislike</button>
-    </div> -->
     <p> Like : {{ like }} </p>
+    <p> Dislike : {{ dislike }}</p>
     <p>Appartient à la catégorie <strong>{{ categorie }}</strong></p>
 </li>

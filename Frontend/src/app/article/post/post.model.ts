@@ -3,4 +3,7 @@ export interface Post {
     title: string;
     content: string;
     attachement: string;
+    categorie: string,
+    like: number,
+    dislike: number,
 }

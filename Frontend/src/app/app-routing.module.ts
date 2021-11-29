@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ArticleComponent } from './article/article.component';
 import { NewPostComponent } from './article/new-post/new-post.component';
 import { AuthComponent } from './auth/auth.component';
-import { RedirectionComponent } from './redirection/redirection.component';
+import { RedirectionComponent } from './layout/redirection/redirection.component';
 import { AuthGuard } from './services/auth-guard.service';
 import { UserComponent } from './user/user.component';
 

@@ -13,31 +13,13 @@ export class PostComponent implements OnInit {
   @Input() content!: string;
   @Input() categorie!: string;
   @Input() attachement!: string;
-  @Input() like! : number;
+  @Input() like!: number;
   @Input() dislike!: number;
 
   constructor(private postService: PostService) { }
 
-  // onLike() {
-  //   if (this.like === 0) {
-  //     return this.like = 1;
-  //   }
-  //   else {
-  //     return this.like = 0;
-  //   }
-  // }
-
-  // onDislike() {
-  //   if (this.dislike === 0) {
-  //     return this.dislike = 1;
-  //   }
-  //   else {
-  //     return this.dislike = 0;
-  //   }
-  // }
-  ngOnInit() {
+  ngOnInit(): void {
 
   }
-
 }
 
