@@ -1,26 +1,19 @@
-<div class="card" style="width: 18rem;">
-    <h1><a href=""><img class="card-img-top" src="../../assets/icon-above-font.svg" alt="logo Groupomania"></a></h1>
-    <div class="card-body">
-      <h2 class="card-title">Bienvenue</h2>
-      <form class="col-12">
-        <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-        </div>
-        <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-        </div>
-        <button type="submit" class="btn btn-primary" *ngIf="!authStatus && !creatAccompte" (click)="onSignIn()">Submit</button>
-        </form>
-    </div>
-    <div>
-        <button  class="btn btn-success" (click)="CreatAccompteclick()">Créer un compte</button>
-        <div *ngIf="creatAccompte">
-            <app-create-user></app-create-user>
-        </div>
-    </div>
-</div>
+<form *ngIf="showCreate == false" [formGroup]="loginForm">
+  <div class="form-group">
+    <label for="email">
+      email
+    </label>
+    <input type="text" id="email" class="form-control" formControlName="email" required>
+  </div>
+  <div class="form-group">
+    <label for="password">
+      password
+    </label>
+    <input type="text" id="password" class="form-control" formControlName="password" required>
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid" (click)="signIn()">Enregistrer</button>
+</form>
 
-
-
+<button *ngIf="showCreate == false"class="btn-success" type="submit" (click)="showCreatForm()"></button>
+<button *ngIf="showCreate == true" class="btn-danger" type="submit" (click)="disableCreatForm()"></button>
+<app-create-user *ngIf="showCreate == true"></app-create-user>

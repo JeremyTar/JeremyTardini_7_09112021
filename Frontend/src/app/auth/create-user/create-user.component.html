@@ -1,1 +1,22 @@
-<p>create-user works!</p>
+<form [formGroup]="signupForm">
+  <label for="firstName">firstnam</label>
+  <input type="text" placeholder="Please enter your firstname" id="firstName" class="form-control" formControlName="firstName" required>
+  <label for="lastName">
+    lastName
+  </label>
+  <input type="text" placeholder="Please enter your lastname" id="lastName" class="form-control" formControlName="lastName" required>
+  <label>
+    email
+  </label>
+
+  <input aria-label="email input" matInput placeholder="pat@example.com" type="email" class="form-control" id="email"
+    formControlName="email" required>
+  <label>
+    password
+  </label>
+  <input class="form-control" id="password" formControlName="password" required>
+  <button aria-label="submit signup form" (click)="onSignup()" mat-raised-button color="primary" class="btn btn-primary"
+    [disabled]="signupForm.invalid">
+    SIGN UP
+  </button>
+</form>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import { FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
+import { UserService } from "../services/user.service"
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,29 +10,43 @@ import { Router } from '@angular/router';
 })
 export class AuthComponent implements OnInit {
 
+  loginForm!: FormGroup
   authStatus!: boolean;
-  creatAccompte!: boolean;
+  errorMsg!: string;
+  showCreate: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router) { }
 
-  ngOnInit(): any {
-    this.authStatus = this.authService.isAuth;
-  }
-  onSignIn() {
-    this.authService.signIn().then(
-      () => {
-        this.authStatus = this.authService.isAuth;
-        this.router.navigate(['main'])
-      }
-    );
-  }
-  onSignOut() {
-    this.authService.signOut()
-    this.authStatus = this.authService.isAuth;
+  ngOnInit(): void {
+    this.authStatus = this.userService.isAuth;
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+    });
+
   }
 
-  CreatAccompteclick() {
-    this.authService.creatAccompte()
-    this.creatAccompte = this.authService.Creat;
+  signIn() {
+    const formValue = this.loginForm.value;
+    const email = formValue.email;
+    const password = formValue.password;
+    this.userService.loginUser(email, password)
+    .subscribe((data) => {
+      localStorage.setItem('key', JSON.stringify(data));
+      this.userService.isAuth = true;
+      this.router.navigate(['/main']);
+    },
+    (error: any) => {
+      this.errorMsg = error.message;
+      console.log(this.errorMsg);
+    });
+  }
+
+  showCreatForm(): void {
+    this.showCreate = true
+  }
+
+  disableCreatForm(): void {
+    this.showCreate = false
   }
 }

@@ -12,8 +12,8 @@ createConnection().then(async () => {
 const app = express()
     .use(cors())
     .use(express.json())
-    .use(UserRouter)
-    .use(PostRouter)
+    .use('/api', UserRouter)
+    .use('/api', PostRouter)
 
 app.listen(3000, () => {
     return console.log('My Node App listening on port 3000');

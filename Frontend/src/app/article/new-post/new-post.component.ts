@@ -18,11 +18,15 @@ export class NewPostComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    const title = form.value['title']
-    const descriptionPost = form.value['descriptionPost']
-    const categorie = form.value['categorie']
-    this.postService.addPost(title, descriptionPost, categorie);
+    const Newpost = {
+      title: form.value['title'],
+      content: form.value['content'],
+      attachement: form.value['attachement'],
+      categorie: form.value['categorie'],
+      like: 0,
+      dislike: 0
+    }
+    // this.postService.addPost(title, descriptionPost, categorie);
     this.router.navigate(['/main'])
   }
-
 }

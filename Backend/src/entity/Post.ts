@@ -3,7 +3,7 @@ import { Entity, PrimaryGeneratedColumn, Column, getConnection, Connection, Repo
 @Entity()
 export class Post {
 
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn('increment')
     postId: number;
 
     @Column({ type: "varchar", length: 20 })
@@ -12,7 +12,7 @@ export class Post {
     @Column({ type: "varchar", length: 255 })
     content: string;
 
-    @Column({ unique: true, type: "varchar", length: 150, default: "" })
+    @Column({ type: "varchar", length: 150, default: '' })
     attachement?: string;
 
     @Column({ default: 0 })

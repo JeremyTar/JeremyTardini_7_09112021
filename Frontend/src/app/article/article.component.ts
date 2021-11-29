@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { PostService } from 'src/app/services/post.service';
 
 @Component({
@@ -20,7 +20,6 @@ export class ArticleComponent implements OnInit {
         this.posts = posts
       }
     );
-    this.PostService.emitPostsSubject()
   }
 
 }

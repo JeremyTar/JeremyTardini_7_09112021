@@ -1,44 +1,38 @@
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { Subject } from "rxjs"
+import { Post } from "../article/post/post.model";
+import { UserService } from "./user.service";
 
+
+@Injectable()
 export class PostService {
-  postsSubject = new Subject<any[]>();
 
-  private posts = [
-    {
-      id: 1,
-      title: "Mon nouveau post !",
-      descriptionPost: 'Illud autem non dubitatur quod cum esset aliquando virtutum omnium domicilium Roma, ingenuos advenas plerique nobilium, ut Homerici bacarum suavitate Lotophagi, humanitatis multiformibus officiis retentabant.',
-      categorie: 'Work'
-    },
-    {
-      id: 2,
-      title: "Mon nouveau post !",
-      descriptionPost: 'Illud autem non dubitatur quod cum esset aliquando virtutum omnium domicilium Roma, ingenuos advenas plerique nobilium, ut Homerici bacarum suavitate Lotophagi, humanitatis multiformibus officiis retentabant.',
-      categorie: "event"
-    },
-    {
-      id: 3,
-      title: "Mon nouveau post !",
-      descriptionPost: 'Illud autem non dubitatur quod cum esset aliquando virtutum omnium domicilium Roma, ingenuos advenas plerique nobilium, ut Homerici bacarum suavitate Lotophagi, humanitatis multiformibus officiis retentabant.',
-      categorie: 'Machine à café'
-    },
-  ];
+  postsSubject$ = new Subject<any[]>();
 
-  emitPostsSubject() {
-    this.postsSubject.next(this.posts.slice())
+  constructor(private http: HttpClient, private router: Router, private userService: UserService) { };
+
+  getAllpost() {
+    this.http.get('http://localhost:3000/api/publications').subscribe(
+      (post: Post[]) => {
+        this.postsSubject$.next(post);
+      },
+      (error) => {
+        this.postsSubject$.next([]);
+        console.error(error);
+        if (error.status === 302) {
+          this.userService.isAuth = false;
+          this.router.navigate(['/login']);
+        }
+      }
+    );
   }
-  addPost(title: string, descriptionPost: string, categorie: string) {
-    const postObject = {
-      id: 0,
-      title: "",
-      descriptionPost:"",
-      categorie: ""
-    };
-    postObject.title = title;
-    postObject.descriptionPost = descriptionPost;
-    postObject.categorie = categorie;
-    postObject.id = this.posts[(this.posts.length - 1)].id + 1;
-    this.posts.push(postObject);
-    this.emitPostsSubject();
+
+  getOnepost(id: string) {
+    return this.http.get('http://localhost:3000/api/posts' + id)
   }
 }
+
+
+

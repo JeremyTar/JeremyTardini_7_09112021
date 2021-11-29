@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -11,15 +11,15 @@ export class HeaderComponent implements OnInit {
 
   authStatus!: boolean;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): any {
-    this.authStatus = this.authService.isAuth;
+    this.authStatus = this.userService.isAuth;
   }
 
   userDeconnexion() {
-    this.authService.signOut()
-    this.authStatus = this.authService.isAuth;
+    this.userService.signOut()
+    this.authStatus = this.userService.isAuth;
     this.router.navigate([''])
   }
 }

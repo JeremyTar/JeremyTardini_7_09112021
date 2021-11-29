@@ -13,5 +13,5 @@ export const PostRouter: Router = Router();
 PostRouter.get('/posts', getAllPosts);
 PostRouter.get('/posts/:id', getOnePost);
 PostRouter.post('/posts', sendPost)
-PostRouter.post('/posts/:id', savePost);
+PostRouter.put('/posts/:id', savePost);
 PostRouter.delete('/posts/:id', deletePost);
