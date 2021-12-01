@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PostService } from 'src/app/services/post.service';
+import { ArticleComponent } from '../article.component';
 
 @Component({
   selector: 'app-new-post',
@@ -10,23 +11,29 @@ import { PostService } from 'src/app/services/post.service';
 })
 export class NewPostComponent implements OnInit {
 
-  
+  NewPostForm!: FormGroup;
+
   constructor(private postService: PostService,
-              private router: Router ) { }
+              private router: Router, 
+              private articleComponent: ArticleComponent,
+              private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.NewPostForm = this.formBuilder.group({
+      title: ['', Validators.required],
+      content: ['', Validators.required],
+      categorie: ['', Validators.required]
+    });
   }
 
-  onSubmit(form: NgForm) {
-    const Newpost = {
-      title: form.value['title'],
-      content: form.value['content'],
-      attachement: form.value['attachement'],
-      categorie: form.value['categorie'],
-      like: 0,
-      dislike: 0
-    }
-    // this.postService.addPost(title, descriptionPost, categorie);
-    this.router.navigate(['/main'])
+  onSubmit() {
+    const Newpost = this.NewPostForm.value;
+
+    this.postService.sendPost(Newpost)
+    .subscribe((data) => {
+      console.log(data);
+      this.articleComponent.newPost = false;
+      this.articleComponent.ngOnInit();
+    })
   }
 }

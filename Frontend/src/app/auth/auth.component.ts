@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { UserService } from "../services/user.service"
 import { Router } from '@angular/router';
 
@@ -32,7 +32,11 @@ export class AuthComponent implements OnInit {
     const password = formValue.password;
     this.userService.loginUser(email, password)
     .subscribe((data) => {
-      localStorage.setItem('key', JSON.stringify(data));
+      const splitData: any = data
+      const token: string = splitData.token
+      const userId: string = splitData.userId
+      localStorage.setItem('token', token);
+      localStorage.setItem('userId', userId);
       this.userService.isAuth = true;
       this.router.navigate(['/main']);
     },

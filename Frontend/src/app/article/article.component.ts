@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { PostService } from 'src/app/services/post.service';
-import { Post } from './post/post.model';
+
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
@@ -11,19 +10,25 @@ export class ArticleComponent implements OnInit {
 
   posts!: any;
   errorMsg!: string;
-  newPost!: boolean;
+  newPost: boolean = false;
 
   constructor(private PostService: PostService) { }
 
   
   ngOnInit(): any {
-  this.newPost = this.PostService.showNewPost
+  this.newPost = this.PostService.showNewPost;
   this.PostService.getAllpost()
   .subscribe((data) => {
       this.posts = data;
-      console.log(data);
-      console.log(this.posts)
+      this.posts.reverse();
     })
+  }
+
+  openNewPost(): void {
+    this.newPost = true;
+  }
+  hideNewPost(): void {
+    this.newPost = false;
   }
 
 }

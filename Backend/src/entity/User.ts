@@ -1,10 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, getConnection, Connection, Repository } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, getConnection, Repository, OneToMany, JoinColumn } from "typeorm";
+import { Post } from "./Post";
+import { Comment } from "./Comment";
 
 @Entity()
 export class User {
 
     @PrimaryGeneratedColumn("uuid")
-    userId!: any;
+    userId: string;
 
     @Column({ type: "varchar", length: 20 })
     firstName: string;
@@ -27,9 +29,15 @@ export class User {
     @Column({ default: false })
     isAdmin?: boolean;
 
+    @OneToMany(() => Post, post => post.user, {
+        cascade: true
+    })
+    @JoinColumn()
+    posts: Post[];
 
-}
-
-export async function getUserRepository(): Promise<Repository<User>> {
-    return getConnection().getRepository(User);
+    @OneToMany(() => Comment, comment => comment.user, {
+        cascade: true
+    })
+    @JoinColumn()
+    comments: Comment[];
 }

@@ -4,7 +4,7 @@ import { Post } from "../entity/Post";
 
 export async function getAllPosts(req: Request, res: Response, next: NextFunction) {
     try {
-        const repository = await getConnection().getRepository(Post);
+        const repository = getConnection().getRepository(Post);
         const allPosts = await repository.find();
         res.send(allPosts);
     }
@@ -15,7 +15,7 @@ export async function getAllPosts(req: Request, res: Response, next: NextFunctio
 
 export async function getOnePost(req: Request, res: Response, next: NextFunction) {
     try {
-        const repository = await getConnection().getRepository(Post);
+        const repository = getConnection().getRepository(Post);
         const onePosts = await repository.findOne(req.params.id);
         res.send(onePosts);
     }
@@ -26,11 +26,12 @@ export async function getOnePost(req: Request, res: Response, next: NextFunction
 
 export async function sendPost(req: Request, res: Response, next: NextFunction) {
     try {
-        const repository = await getConnection().getRepository(Post);
+        const repository = getConnection().getRepository(Post);
         const NewPost = new Post();
         NewPost.title = req.body.title;
         NewPost.content = req.body.content;
         NewPost.attachement = req.body.attachement;
+        NewPost.categorie = req.body.categorie;
         const result = await repository.save(NewPost);
         res.send(result);
     }
@@ -41,11 +42,12 @@ export async function sendPost(req: Request, res: Response, next: NextFunction) 
 
 export async function savePost(req: Request, res: Response, next: NextFunction) {
     try {
-        const repository = await getConnection().getRepository(Post);
+        const repository = getConnection().getRepository(Post);
         const UpdatePost = await repository.findOne(req.params.id);
         UpdatePost.title = req.body.title;
         UpdatePost.content = req.body.content;
         UpdatePost.attachement = req.body.attachement;
+        UpdatePost.categorie = req.body.categorie;
 
         const result = await repository.save(UpdatePost);
         res.send(result);
@@ -57,11 +59,15 @@ export async function savePost(req: Request, res: Response, next: NextFunction) 
 
 export async function deletePost(req: Request, res: Response, next: NextFunction) {
     try {
-        const repository = await getConnection().getRepository(Post);
+        const repository = getConnection().getRepository(Post);
         await repository.delete(req.params.id);
-        res.send('OK');
+        res.send(`Post id : ${req.params.id} was delete`);
     }
     catch (err) {
         return next(err);
     }
 }
+
+
+
+

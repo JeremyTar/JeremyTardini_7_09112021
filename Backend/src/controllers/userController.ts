@@ -23,7 +23,7 @@ export async function getAllusers(req: Request, res: Response, next: NextFunctio
 
 //FONCTION USER LOGIN
 
-export async function userLogin(req: Request, res: Response, next: NextFunction) {
+export async function userLogin (req: Request, res: Response, next: NextFunction) {
 
     //Tchek Rquirements
     let { email, password } = req.body;
@@ -45,7 +45,6 @@ export async function userLogin(req: Request, res: Response, next: NextFunction)
             if (!valid) {
                 return res.status(401).json({ error: 'Mot de passe incorrect !' });
             }
-            //validation est initialisation du token
             res.status(200).json({
                 userId: user.userId,
                 token: jwt.sign(
@@ -119,7 +118,7 @@ export async function deleteUser(req: Request, res: Response, next: NextFunction
     try {
         const userRepository = await getConnection().getRepository(User);
         await userRepository.delete(req.params.id);
-        res.send('OK');
+        res.send(`User id : ${req.params.id} was delete`);
     }
     catch (err) {
         return next(err);

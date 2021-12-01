@@ -15,12 +15,25 @@ export class PostService {
 
   constructor(private http: HttpClient, private router: Router, private userService: UserService) { };
 
+  getToken() {
+    const token = (localStorage.getItem('token'))
+    return token;
+}
+  getUserId() {
+    const userId = (localStorage.getItem('userId'))
+    return userId
+  }
   getAllpost(): Observable<object> {
+    const token = this.getToken()
     return this.http.get('http://localhost:3000/api/posts')
   }
 
-  getOnepost(id: string): Observable<object>{
+  getOnepost(id: string): Observable<object> {
     return this.http.get('http://localhost:3000/api/posts' + id)
+  }
+
+  sendPost(content: Post) {
+    return this.http.post('http://localhost:3000/api/posts', content);
   }
 }
 

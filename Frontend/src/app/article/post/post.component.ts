@@ -16,10 +16,19 @@ export class PostComponent implements OnInit {
   @Input() like!: number;
   @Input() dislike!: number;
 
+  showComments: boolean = false;
+
+  comments: Comment[] = [
+
+  ]
   constructor(private postService: PostService) { }
 
   ngOnInit(): void {
 
+  }
+
+  openComments() {
+    this.showComments = true
   }
 }
 

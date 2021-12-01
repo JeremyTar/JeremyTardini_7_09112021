@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ArticleComponent } from './article/article.component';
@@ -17,6 +17,7 @@ import { HeaderComponent } from './layout/header/header.component';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from './layout/footer/footer.component';
 import { UserService } from './services/user.service';
+import { AuthInterceptor } from './interceptor/jwt-interceptor';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { UserService } from './services/user.service';
     NewPostComponent,
     CreateUserComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
   ],
   imports: [
     CommonModule,
@@ -44,7 +45,12 @@ import { UserService } from './services/user.service';
   providers: [
     AuthGuard,
     PostService,
-    UserService
+    UserService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

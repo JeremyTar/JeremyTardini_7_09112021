@@ -1,4 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, getConnection, Connection, Repository } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, getConnection, Connection, Repository, OneToMany, ManyToOne, JoinColumn } from "typeorm";
+import { User } from "./User";
+import { Comment } from "./Comment";
 
 @Entity()
 export class Post {
@@ -12,6 +14,9 @@ export class Post {
     @Column({ type: "varchar", length: 255 })
     content: string;
 
+    @Column({ type: "varchar", length: 20, default: ''})
+    categorie: string;
+
     @Column({ type: "varchar", length: 150, default: '' })
     attachement?: string;
 
@@ -20,10 +25,13 @@ export class Post {
 
     @Column({ default: 0 })
     dislike: number;
-}
 
-let connection: Connection;
-
-export async function getPostRepository(): Promise<Repository<Post>> {
-    return getConnection().getRepository(Post);
+    @OneToMany(() => Comment, comment => comment.post, {
+        cascade: true
+    })
+    @JoinColumn()
+    comments: Comment[];
+    
+    @ManyToOne(() => User, user => user.posts)
+    user: User;
 }
