@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { ArticleComponent } from './article/article.component';
 import { UserComponent } from './user/user.component';
@@ -11,13 +15,21 @@ import { AuthComponent } from './auth/auth.component';
 import { RedirectionComponent } from './layout/redirection/redirection.component';
 import { AuthGuard } from './services/auth-guard.service';
 import { NewPostComponent } from './article/new-post/new-post.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateUserComponent } from './auth/create-user/create-user.component';
 import { HeaderComponent } from './layout/header/header.component';
-import { CommonModule } from '@angular/common';
 import { FooterComponent } from './layout/footer/footer.component';
 import { UserService } from './services/user.service';
 import { AuthInterceptor } from './interceptor/jwt-interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { CommentsComponent } from './article/comments/comments.component';
+
+
 
 @NgModule({
   declarations: [
@@ -31,6 +43,7 @@ import { AuthInterceptor } from './interceptor/jwt-interceptor';
     CreateUserComponent,
     HeaderComponent,
     FooterComponent,
+    CommentsComponent,
   ],
   imports: [
     CommonModule,
@@ -40,7 +53,13 @@ import { AuthInterceptor } from './interceptor/jwt-interceptor';
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatButtonModule,
+    MatInputModule,
+    MatCardModule
   ],
   providers: [
     AuthGuard,
@@ -52,6 +71,6 @@ import { AuthInterceptor } from './interceptor/jwt-interceptor';
       multi: true
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent, AuthComponent]
 })
 export class AppModule { }

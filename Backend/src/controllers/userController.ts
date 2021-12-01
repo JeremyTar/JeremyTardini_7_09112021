@@ -23,7 +23,7 @@ export async function getAllusers(req: Request, res: Response, next: NextFunctio
 
 //FONCTION USER LOGIN
 
-export async function userLogin (req: Request, res: Response, next: NextFunction) {
+export async function userLogin(req: Request, res: Response, next: NextFunction) {
 
     //Tchek Rquirements
     let { email, password } = req.body;
@@ -98,11 +98,13 @@ export async function updateUser(req: Request, res: Response, next: NextFunction
     try {
         const userRepository = await getConnection().getRepository(User);
         const SaveUser = await userRepository.findOne(req.params.id);
-        let hash = await bcrypt.hash(req.body.password, 10);
         SaveUser.firstName = req.body.firstName;
         SaveUser.lastName = req.body.lastName;
         SaveUser.email = req.body.email;
-        SaveUser.password = hash;
+        SaveUser.bio = req.body.bio;
+        SaveUser.role = req.body.role;
+
+        // SaveUser.AvatarUrl = `${req.protocol}://`
 
         const result = await userRepository.save(SaveUser);
         res.send(result);
@@ -111,6 +113,35 @@ export async function updateUser(req: Request, res: Response, next: NextFunction
         return next(err);
     }
 }
+
+export async function newPassword(req: Request, res: Response, next: NextFunction) {
+    try {
+        let { oldPassword, newPassword } = req.body;
+        if (!(oldPassword && newPassword)) {
+            res.status(400).send("veuillez rentrer vos informations");
+        }
+
+        const userRepository = await getConnection().getRepository(User);
+        const user = await userRepository.findOne(req.params.id);
+        console.log(user)
+        console.log(req.params.id)
+        let compare = await bcrypt.compare(req.body.oldPassword, user.password)
+        if (compare) {
+            let hash = await bcrypt.hash(req.body.newPassword, 10);
+            user.password = hash;
+            console.log(user.password)
+            const result = userRepository.save(user);
+            res.send(result);
+        }
+        else {
+            return res.status(401).json({ error: 'Mot de passe incorrect !' });
+        }
+    }
+    catch (err) {
+        return next(err);
+    }
+}
+
 
 // FUNCTION DELETE USER
 

@@ -7,7 +7,7 @@ dotenv.config();
 
 const mimesTypes: any = {
     'image/jpg': 'jpg',
-    'image/jpeg': 'jpg',
+    'image/jpeg': 'jpeg',
     'image/png': 'png',
 }
 type File = {

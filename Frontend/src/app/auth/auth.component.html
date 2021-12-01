@@ -1,19 +1,40 @@
-<form *ngIf="showCreate == false" [formGroup]="loginForm">
-  <div class="form-group">
-    <label for="email">
-      email
-    </label>
-    <input type="text" id="email" class="form-control" formControlName="email" required>
-  </div>
-  <div class="form-group">
-    <label for="password">
-      password
-    </label>
-    <input type="text" id="password" class="form-control" formControlName="password" required>
-  </div>
-  <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid" (click)="signIn()">Enregistrer</button>
-</form>
 
-<button *ngIf="showCreate == false"class="btn-success" type="submit" (click)="showCreatForm()"></button>
-<button *ngIf="showCreate == true" class="btn-danger" type="submit" (click)="disableCreatForm()"></button>
-<app-create-user *ngIf="showCreate == true"></app-create-user>
+<mat-card>
+  <mat-form-field *ngIf="showCreate == false" appearance="fill" [formGroup]="loginForm">
+    <mat-label>Enter your email</mat-label>
+    <input matInput type="text" placeholder="pat@groupomania.com" formControlName="email" required>
+    <!-- <mat-error *ngIf="loginForm.get('email').invalid">{{getErrorMessage()}}</mat-error> -->
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Enter your password</mat-label>
+    <input matInput [type]="hide ? 'password' : 'text'">
+    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="hide">
+      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+  </mat-form-field>
+</mat-card>
+
+
+
+
+
+  <form *ngIf="showCreate == false" [formGroup]="loginForm">
+    <div class="form-group">
+      <label for="email">
+        email
+      </label>
+      <input id="email" class="form-control" formControlName="email" required>
+    </div>
+    <div class="form-group">
+      <label for="password">
+        password
+      </label>
+      <input type="text" id="password" class="form-control" formControlName="password" required>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid" (click)="signIn()">Enregistrer</button>
+  </form>
+
+  <button *ngIf="showCreate == false" class="btn-success" type="submit" (click)="showCreatForm()"></button>
+  <button *ngIf="showCreate == true" class="btn-danger" type="submit" (click)="disableCreatForm()"></button>
+  <app-create-user *ngIf="showCreate == true"></app-create-user>

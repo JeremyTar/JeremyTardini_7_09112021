@@ -10,7 +10,7 @@ import { postMulter } from '../middleware/multer';
 export const PostRouter: Router = Router();
 
 
-PostRouter.get('/posts', getAllPosts);
+PostRouter.get('/posts',checkJwt, getAllPosts);
 PostRouter.get('/posts/:id', checkJwt, getOnePost);
 PostRouter.post('/posts', postMulter, checkJwt, sendPost)
 PostRouter.put('/posts/:id', postMulter, checkJwt, savePost);

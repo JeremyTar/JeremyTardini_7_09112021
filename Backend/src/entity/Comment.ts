@@ -11,10 +11,8 @@ export class Comment {
     content: string;
 
     @ManyToOne(() => Post, post => post.comments)
-    @JoinColumn()
-    post;
+    post: Post | number;
 
     @ManyToOne(() => User, user => user.comments)
-    @JoinColumn()
-    user;
+    user: User | string;
 }

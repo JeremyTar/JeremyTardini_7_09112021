@@ -14,6 +14,7 @@ export class AuthComponent implements OnInit {
   authStatus!: boolean;
   errorMsg!: string;
   showCreate: boolean = false;
+  hide = true;
 
   constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router) { }
 

@@ -26,10 +26,7 @@ export class Post {
     @Column({ default: 0 })
     dislike: number;
 
-    @OneToMany(() => Comment, comment => comment.post, {
-        cascade: true
-    })
-    @JoinColumn()
+    @OneToMany(() => Comment, comment => comment.post)
     comments: Comment[];
     
     @ManyToOne(() => User, user => user.posts)

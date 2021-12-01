@@ -29,15 +29,9 @@ export class User {
     @Column({ default: false })
     isAdmin?: boolean;
 
-    @OneToMany(() => Post, post => post.user, {
-        cascade: true
-    })
-    @JoinColumn()
+    @OneToMany(() => Post, post => post.user)
     posts: Post[];
 
-    @OneToMany(() => Comment, comment => comment.user, {
-        cascade: true
-    })
-    @JoinColumn()
+    @OneToMany(() => Comment, comment => comment.user)
     comments: Comment[];
 }
