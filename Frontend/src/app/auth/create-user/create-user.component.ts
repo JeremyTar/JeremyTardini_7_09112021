@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
+import { AuthComponent } from '../auth.component';
 
 @Component({
   selector: 'app-create-user',
@@ -13,8 +14,9 @@ export class CreateUserComponent implements OnInit {
 
   signupForm!: FormGroup;
   errorMsg!: string
+  hide: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router,private authComponent: AuthComponent) { }
 
   ngOnInit(): void {
     this.signupForm = this.formBuilder.group({
@@ -32,7 +34,24 @@ export class CreateUserComponent implements OnInit {
       .subscribe((data) => {
         localStorage.setItem('key', JSON.stringify(data));
         this.userService.isAuth = true;
-        this.router.navigate(['/main']);
+        const formValue = this.signupForm.value;
+        const email = formValue.email;
+        const password = formValue.password;
+        this.userService.loginUser(email, password)
+        .subscribe((data) => {
+          const splitData: any = data
+          const token: string = splitData.token
+          const userId: string = splitData.userId
+          localStorage.setItem('token', token);
+          localStorage.setItem('userId', userId);
+          this.userService.isAuth = true;
+          this.router.navigate(['/main']);
+        },
+        (error: any) => {
+          this.errorMsg = error.message;
+          console.log(this.errorMsg);
+        });
+        this.router.navigate(['/']);
       },
         (error: any) => {
           this.errorMsg = error.message;

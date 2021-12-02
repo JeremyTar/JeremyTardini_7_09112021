@@ -1,3 +1,5 @@
+// ANGULAR MODULES
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
@@ -5,6 +7,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
+
+// ALL COMPONENTS
 
 import { AppComponent } from './app.component';
 import { ArticleComponent } from './article/article.component';
@@ -22,6 +26,8 @@ import { UserService } from './services/user.service';
 import { AuthInterceptor } from './interceptor/jwt-interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+// MATERIALS AND DESIGN
+
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -29,6 +35,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { CommentsComponent } from './article/comments/comments.component';
 import { CommentService } from './services/comment.service';
+
 
 
 
@@ -60,7 +67,7 @@ import { CommentService } from './services/comment.service';
     MatIconModule,
     MatButtonModule,
     MatInputModule,
-    MatCardModule
+    MatCardModule,
   ],
   providers: [
     AuthGuard,

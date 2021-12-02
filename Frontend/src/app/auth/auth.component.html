@@ -1,40 +1,109 @@
+<body>
 
-<mat-card>
-  <mat-form-field *ngIf="showCreate == false" appearance="fill" [formGroup]="loginForm">
-    <mat-label>Enter your email</mat-label>
-    <input matInput type="text" placeholder="pat@groupomania.com" formControlName="email" required>
-    <!-- <mat-error *ngIf="loginForm.get('email').invalid">{{getErrorMessage()}}</mat-error> -->
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Enter your password</mat-label>
-    <input matInput [type]="hide ? 'password' : 'text'">
-    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-      [attr.aria-pressed]="hide">
-      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+
+  <main class="auth card col-11 col-sm-8 col-lg-6">
+    <div class="card auth__presentation col-8">
+      <a href="/"><img src="../../assets/icon-above-font-transparent.png"></a>
+      <h1 class="text-center">Votre réseau social d'enterprise</h1>
+    </div>
+
+
+
+    <form class="container-login auth__form col-12" [formGroup]="loginForm" (ngSubmit)="signIn()" *ngIf="!showCreate">
+      <div class="auth__form__input">
+
+        <mat-form-field appearance="fill">
+          <mat-label>Enter your email</mat-label>
+          <input matInput placeholder="pat@example.com" type="email" class="form-control" id="email"
+            formControlName="email" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Enter your password</mat-label>
+          <input matInput [type]="hide ? 'text' : 'password'" class="form-control" id="password"
+            formControlName="password" required>
+          <button mat-icon-button matSuffix (click)="hide = !hide;$event.preventDefault()"
+            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>
+              {{hide ? 'visibility' : 'visibility_off'}}
+            </mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+
+      <div class="auth__form__login">
+        <button class="auth__form__login__button" aria-label="submit logins & connect" class="btn--lg" mat-raised-button
+          type="submit" [disabled]="loginForm.invalid">
+          Login
+        </button>
+        <p class="text-danger" *ngIf="errorMsg">{{ errorMsg }}</p>
+      </div>
+
+      <div class="auth__form__create">
+      <p>You dont have any account yet ?</p>
+      <button mat-raised-button aria-label="open signin form" class="btn--mid" (click)="showCreatForm()">
+        Create Account
+      </button>
+
+      </div>
+
+    </form>
+    <app-create-user *ngIf="showCreate == true"></app-create-user>
+    <button mat-raised-button *ngIf="showCreate" aria-label="open signin form" class="btn--mid goOnLogin" (click)="disableCreatForm()">
+      Go on login
     </button>
-  </mat-form-field>
-</mat-card>
+  </main>
 
-
-
-
-
-  <form *ngIf="showCreate == false" [formGroup]="loginForm">
-    <div class="form-group">
-      <label for="email">
-        email
-      </label>
-      <input id="email" class="form-control" formControlName="email" required>
-    </div>
-    <div class="form-group">
-      <label for="password">
-        password
-      </label>
-      <input type="text" id="password" class="form-control" formControlName="password" required>
-    </div>
-    <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid" (click)="signIn()">Enregistrer</button>
-  </form>
-
-  <button *ngIf="showCreate == false" class="btn-success" type="submit" (click)="showCreatForm()"></button>
-  <button *ngIf="showCreate == true" class="btn-danger" type="submit" (click)="disableCreatForm()"></button>
-  <app-create-user *ngIf="showCreate == true"></app-create-user>
+  <div class="bubbles">
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+  </div>
+</body>
