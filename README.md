@@ -5,7 +5,7 @@ Projet n°7 d'Openclassroom - Groupomania
 
 **Build with [NodeJs](https://nodejs.org/en/docs/) + [Typeorm](https://typeorm.io/#/) + [Mysql](https://dev.mysql.com/doc/) in typescript.** :construction_worker:
 
-1. Use **npm install**, **on ./Backend folder.
+1. Use **npm install**, on ./Backend folder.
 2. Add a **ormconfig.json** file on the backend root with this configuration :
 ```
   {
