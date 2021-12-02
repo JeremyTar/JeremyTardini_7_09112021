@@ -6,6 +6,6 @@ import { getCommentsOfPost, addCommentToPost, updateComment, deleteComment } fro
 export const CommentRouter: Router = Router();
 
 CommentRouter.get('/posts/:id/comments',checkJwt, getCommentsOfPost)
-CommentRouter.post('/posts/:id/', checkJwt, addCommentToPost)
+CommentRouter.post('/posts/:id', checkJwt, addCommentToPost)
 CommentRouter.put('/comments/:id', checkJwt, updateComment)
 CommentRouter.delete('/comments/:id', checkJwt, deleteComment)

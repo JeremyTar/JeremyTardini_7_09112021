@@ -28,6 +28,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { CommentsComponent } from './article/comments/comments.component';
+import { CommentService } from './services/comment.service';
 
 
 
@@ -65,6 +66,7 @@ import { CommentsComponent } from './article/comments/comments.component';
     AuthGuard,
     PostService,
     UserService,
+    CommentService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

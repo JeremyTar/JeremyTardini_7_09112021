@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from 'src/app/services/post.service';
+import { Post } from './post/post.model';
 
 @Component({
   selector: 'app-article',
@@ -22,7 +23,7 @@ export class ArticleComponent implements OnInit {
       this.posts = data;
       this.posts.reverse();
     })
-  }
+}
 
   openNewPost(): void {
     this.newPost = true;

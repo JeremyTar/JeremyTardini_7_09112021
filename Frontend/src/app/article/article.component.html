@@ -5,6 +5,7 @@
     <div class="row align-self-center">
       <ul class='list-group p-0'>
         <app-post *ngFor="let post of posts"
+                      [postId]="post.postId"
                       [title]="post.title"
                       [content]="post.content"
                       [categorie]="post.categorie"

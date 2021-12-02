@@ -10,9 +10,15 @@ export class Comment {
     @Column({ type: "varchar", length: 255 })
     content: string;
 
-    @ManyToOne(() => Post, post => post.comments)
+    @ManyToOne(() => Post, post => post.comments, {
+        cascade: true
+    })
+    @JoinColumn()
     post: Post | number;
 
-    @ManyToOne(() => User, user => user.comments)
+    @ManyToOne(() => User, user => user.comments, {
+        cascade: true
+    })
+    @JoinColumn()
     user: User | string;
 }

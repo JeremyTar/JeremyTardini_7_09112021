@@ -28,7 +28,6 @@ export class NewPostComponent implements OnInit {
 
   onSubmit() {
     const Newpost = this.NewPostForm.value;
-
     this.postService.sendPost(Newpost)
     .subscribe((data) => {
       console.log(data);

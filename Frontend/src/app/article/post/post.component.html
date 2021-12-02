@@ -4,6 +4,12 @@
   <p> Like : {{ like }} </p>
   <p> Dislike : {{ dislike }}</p>
   <p>Appartient à la catégorie <strong>{{ categorie }}</strong></p>
-  <button *ngIf="showComments" (click)="openComments()"></button>
-  <app-comments *ngIf="!showComments"></app-comments>
-</li>
+  <button *ngIf="!showComments" id="buttoncomment" (click)="openComments()"></button>
+  <div *ngIf="showComments">
+  <app-comments
+                *ngFor="let comment of comments"
+                        [commentId]="comment.commentId"
+  ></app-comments>
+  </div>
+  <button *ngIf="showComments" (click)="closeComment()">closeComment</button>
+ 

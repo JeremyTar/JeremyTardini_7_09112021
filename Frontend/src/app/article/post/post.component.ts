@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PostService } from 'src/app/services/post.service';
+import { CommentService } from 'src/app/services/comment.service';
+import { Comment } from '../comments/comments.model';
 
 
 @Component({
@@ -9,6 +10,7 @@ import { PostService } from 'src/app/services/post.service';
 })
 export class PostComponent implements OnInit {
 
+  @Input() postId!: number;
   @Input() title!: string;
   @Input() content!: string;
   @Input() categorie!: string;
@@ -17,11 +19,11 @@ export class PostComponent implements OnInit {
   @Input() dislike!: number;
 
   showComments: boolean = false;
+  comments!: any;
+  post!: number;
+  user!: string;
 
-  comments: Comment[] = [
-
-  ]
-  constructor(private postService: PostService) { }
+  constructor(private commentsService: CommentService) { }
 
   ngOnInit(): void {
 
@@ -29,6 +31,18 @@ export class PostComponent implements OnInit {
 
   openComments() {
     this.showComments = true
+    this.commentsService.getAllCommentsOfPost(this.postId)
+      .subscribe((data) => {
+        
+        this.comments = data;
+        this.comments.reverse()
+        console.log(this.comments)
+        console.log(this.comments.content)
+
+      })
+  }
+  closeComment() {
+    this.showComments = false
   }
 }
 

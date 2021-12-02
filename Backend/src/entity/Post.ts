@@ -29,6 +29,9 @@ export class Post {
     @OneToMany(() => Comment, comment => comment.post)
     comments: Comment[];
     
-    @ManyToOne(() => User, user => user.posts)
+    @ManyToOne(() => User, user => user.posts, {
+        cascade: true
+    })
+    @JoinColumn()
     user: User;
 }

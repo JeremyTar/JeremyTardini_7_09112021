@@ -1,9 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
 import { Subject } from "rxjs"
 import { Post } from "../article/post/post.model";
-import { UserService } from "./user.service";
 import { Observable } from "rxjs";
 
 
@@ -13,7 +11,7 @@ export class PostService {
   postsSubject$ = new Subject<any[]>();
   showNewPost = false;
 
-  constructor(private http: HttpClient, private router: Router, private userService: UserService) { };
+  constructor(private http: HttpClient) { };
 
   getToken() {
     const token = (localStorage.getItem('token'))
@@ -23,17 +21,27 @@ export class PostService {
     const userId = (localStorage.getItem('userId'))
     return userId
   }
+
+
+
   getAllpost(): Observable<object> {
-    const token = this.getToken()
     return this.http.get('http://localhost:3000/api/posts')
   }
 
-  getOnepost(id: string): Observable<object> {
+  getOnepost(id: number): Observable<object> {
     return this.http.get('http://localhost:3000/api/posts' + id)
   }
 
   sendPost(content: Post) {
     return this.http.post('http://localhost:3000/api/posts', content);
+  }
+
+  updatePost(id: number, content: Post): Observable<object>{
+    return this.http.post('http://localhost:3000/api/posts' + id, content);
+  }
+
+  deletePost(id: number): Observable<object> {
+    return this.http.delete('http://localhost:3000/api/posts' + id)
   }
 }
 
