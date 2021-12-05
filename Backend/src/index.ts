@@ -1,9 +1,11 @@
 import * as express from 'express';
 import * as cors from 'cors';
+
 import { UserRouter } from './routes/userRoute'
 import { PostRouter } from './routes/postRoute';
 import { createConnection, getConnection } from 'typeorm';
 import { CommentRouter } from './routes/commentRoute';
+
 
 
 createConnection().then(async () => {

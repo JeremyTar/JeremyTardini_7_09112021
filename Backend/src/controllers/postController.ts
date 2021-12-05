@@ -30,9 +30,10 @@ export async function sendPost(req: Request, res: Response, next: NextFunction) 
         const NewPost = new Post();
         NewPost.title = req.body.title;
         NewPost.content = req.body.content;
-        NewPost.attachement = req.body.attachement;
         NewPost.categorie = req.body.categorie;
+        NewPost.attachement = `${req.protocol}://${req.get('host')}/posts_images/${req.file.filename}`           
         const result = await repository.save(NewPost);
+        console.log(result)
         res.send(result);
     }
     catch (err) {
@@ -46,15 +47,20 @@ export async function savePost(req: Request, res: Response, next: NextFunction) 
         const UpdatePost = await repository.findOne(req.params.id);
         UpdatePost.title = req.body.title;
         UpdatePost.content = req.body.content;
-        UpdatePost.attachement = req.body.attachement;
+        UpdatePost.attachement = `${req.protocol}://${req.get('host')}/posts_images/${req.file.filename}`             
         UpdatePost.categorie = req.body.categorie;
 
         const result = await repository.save(UpdatePost);
+        console.log(result)
         res.send(result);
     }
     catch (err) {
         return next(err);
     }
+}
+
+export async function savePostImage(req: Request, file: File, next: NextFunction) {
+
 }
 
 export async function deletePost(req: Request, res: Response, next: NextFunction) {

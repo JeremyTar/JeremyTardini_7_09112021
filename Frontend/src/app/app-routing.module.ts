@@ -13,7 +13,7 @@ const routes: Routes = [
   {path: 'user', canActivate: [AuthGuard], component: UserComponent },
   {path: '', component: AuthComponent},
   {path:'404', component: RedirectionComponent},
-  {path: '**', redirectTo: '/404'}
+  {path: '**', redirectTo: '404'}
 ];
 
 

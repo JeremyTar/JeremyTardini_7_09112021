@@ -91,8 +91,8 @@ export async function createUser(req: Request, res: Response, next: NextFunction
         return next(err);
     }
 }
-
 // FUNCTION UPTADE USER
+
 
 export async function updateUser(req: Request, res: Response, next: NextFunction) {
     try {
@@ -103,7 +103,6 @@ export async function updateUser(req: Request, res: Response, next: NextFunction
         SaveUser.email = req.body.email;
         SaveUser.bio = req.body.bio;
         SaveUser.role = req.body.role;
-
         // SaveUser.AvatarUrl = `${req.protocol}://`
 
         const result = await userRepository.save(SaveUser);

@@ -2,7 +2,7 @@
 import { Router } from 'express';
 import { getAllPosts, getOnePost, sendPost, savePost, deletePost } from "../controllers/postController"
 import { checkJwt } from '../middleware/auth';
-import { postMulter } from '../middleware/multer';
+import { Multer } from '../middleware/multer';
 
 
 //mise en place de la route Post
@@ -12,6 +12,9 @@ export const PostRouter: Router = Router();
 
 PostRouter.get('/posts',checkJwt, getAllPosts);
 PostRouter.get('/posts/:id', checkJwt, getOnePost);
-PostRouter.post('/posts', postMulter, checkJwt, sendPost)
-PostRouter.put('/posts/:id', postMulter, checkJwt, savePost);
-PostRouter.delete('/posts/:id', postMulter, checkJwt, deletePost);
+PostRouter.post('/posts', Multer, checkJwt, sendPost)
+
+PostRouter.post('/posts/file', Multer)
+
+PostRouter.put('/posts/:id', Multer, checkJwt, savePost);
+PostRouter.delete('/posts/:id', Multer, checkJwt, deletePost);

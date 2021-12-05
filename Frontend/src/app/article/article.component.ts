@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from 'src/app/services/post.service';
-import { Post } from './post/post.model';
+import { UserService } from '../services/user.service';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-article',
@@ -12,8 +13,9 @@ export class ArticleComponent implements OnInit {
   posts!: any;
   errorMsg!: string;
   newPost: boolean = false;
+  authStatus!: boolean;
 
-  constructor(private PostService: PostService) { }
+  constructor(private PostService: PostService, private userService: UserService, private router: Router) { }
 
   
   ngOnInit(): any {
@@ -24,6 +26,15 @@ export class ArticleComponent implements OnInit {
       this.posts.reverse();
     })
 }
+  userDeconnexion() {
+    this.userService.signOut()
+    this.authStatus = this.userService.isAuth;
+    this.router.navigate([''])
+  }
+
+  goOnUser() {
+    this.router.navigate(['user'])
+  }
 
   openNewPost(): void {
     this.newPost = true;
@@ -31,5 +42,4 @@ export class ArticleComponent implements OnInit {
   hideNewPost(): void {
     this.newPost = false;
   }
-
 }

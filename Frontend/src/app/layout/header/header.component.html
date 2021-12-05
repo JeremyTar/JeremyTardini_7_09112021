@@ -1,9 +1,0 @@
-<header>
-    <h1 class="text-center"><a class="p-3" routerLink="/main">Groupomania</a></h1>
-    <nav>
-        <a class="p-3 btn" routerLink="/user"><i class="fas fa-user"></i></a>
-        <button *ngIf="showNewPostButton == true" id="newPost" (click)="openNewPost()">Ajouter un Post</button>
-        <button *ngIf="showNewPostButton == false" id="newPost" (click)="hideNewPost()"></button>
-        <button class='btn' (click)="userDeconnexion()"><i class="fas fa-power-off"></i></button>
-    </nav>
-</header>

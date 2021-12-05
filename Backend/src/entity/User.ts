@@ -17,19 +17,22 @@ export class User {
     @Column({ unique: true, type: "varchar", length: 50 })
     email: string;
 
+    @Column({type: "varchar", nullable : true})
+    avatarUrl: any;
+
     @Column({ type: "varchar", length: 255 })
     password: any;
 
-    @Column({ type: "varchar", length: 20, default: "" })
-    role?: string;
+    @Column({ type: "varchar", length: 20, nullable: true })
+    role: string | null;
 
-    @Column({ type: "varchar", length: 255, default: "" })
-    bio?: string;
+    @Column({ type: "varchar", length: 255, nullable: true})
+    bio: string | null;
 
     @Column({ default: false })
-    isAdmin?: boolean;
+    isAdmin: boolean;
 
-    @OneToMany(() => Post, post => post.user)
+    @OneToMany(() => Post, post => post.user, )
     posts: Post[];
 
     @OneToMany(() => Comment, comment => comment.user)

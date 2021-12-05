@@ -1,3 +1,91 @@
-<app-header></app-header>
+<header>
+  <h1 class="text-center">Groupomania</h1>
+  <nav>
+    <button class='btn' (click)="goOnPosts()"><i class="fas fa-comment-alt"></i></button>
+    <!-- <button *ngIf="!newPost" id="newPost" (click)="openNewPost()">Ajouter un Post</button>
+        <button *ngIf="newPost" id="newPost" (click)="hideNewPost()">Fermer le nouveau post</button> -->
+    <button class='btn' (click)="userDeconnexion()"><i class="fas fa-power-off"></i></button>
+  </nav>
+</header>
 
-<p>user works!</p>
+
+<main class="container">
+  <mat-card class="col-12 user__card">
+    <mat-card-title class="text-center user__card__title">My user accompt</mat-card-title>
+    <div class="user__card__photo">
+      <img matCardAvatar *ngIf="!this.user.avatarUrl" src="../../assets/Point-interrogation.jpg">
+      <img matCardAvatar *ngIf="this.user.avatarUrl" [src]="this.user.avatarUrl"/>
+      <div *ngIf="this.changeAvatar" class="d-flex">
+    <input type="file" class="modify__button" (change)="selectedFileAvatar($event)">
+    <button (click)="this.changeAvatar = false" ><i  class="fas fa-wrench"></i></button> 
+      </div>
+
+    <button *ngIf="!this.changeAvatar" (click)="this.changeAvatar = true" ><i  class="fas fa-wrench"></i></button>     
+    </div>
+    
+    <div class="card-body user__card__body">
+      <div>
+        <h3>First Name</h3>
+        <div class="d-flex align-items ">
+          <p class="card-text">{{ this.user.firstName }}</p>
+          <button class="modify__button"><i class="fas fa-wrench"></i></button>
+        </div>
+      </div>
+      <div>
+        <h3>Last Name</h3>
+        <div class="d-flex align-self-center">
+          <p class="card-text">{{ this.user.lastName }}</p>
+          <button mat-raised-button><i class="fas fa-wrench"></i></button>
+        </div>
+      </div>
+      <div>
+        <h3>Your email</h3>
+        <div class="d-flex align-self-center ">
+          <p class="card-text">{{ this.user.email }}</p>
+          <button mat-raised-button><i class="fas fa-wrench"></i></button>
+        </div>
+      </div>
+
+      <h3>Role</h3>
+      <div class="d-flex">
+        <mat-form-field *ngIf="!this.user.role" appearance="fill">
+          <mat-label>Choose your role</mat-label>
+          <mat-select [disabled]="disableSelect.value">
+            <mat-option value="Marketing">Marketing</mat-option>
+            <mat-option value="Techinal departement">Techinal departement</mat-option>
+            <mat-option value="Commercial">Commercial</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <h3>Bio</h3>
+      <div class="d-flex">
+        <mat-form-field *ngIf="!this.user.bio" appearance="fill">
+          <input matInput *ngIf="!this.user.bio" type="text">
+          <p *ngIf="this.user.bio" class="card-text">{{this.user.bio}}</p> <button *ngIf="this.user.bio"
+            mat-raised-button><i class="fas fa-wrench"></i></button>
+        </mat-form-field>
+      </div>
+      <div class="d-flex justify-content-evenly mt-2">
+          <button mat-raised-button>Uptade User</button>
+          <button mat-raised-button>Change Passeword</button>
+          <button mat-raised-button color="warm">Delete User</button>
+      </div>
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+  </mat-card>
+
+
+
+</main>

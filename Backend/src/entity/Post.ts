@@ -11,14 +11,14 @@ export class Post {
     @Column({ type: "varchar", length: 20 })
     title: string;
 
-    @Column({ type: "varchar", length: 255 })
+    @Column({ type: "text"})
     content: string;
 
     @Column({ type: "varchar", length: 20, default: ''})
     categorie: string;
 
-    @Column({ type: "varchar", length: 150, default: '' })
-    attachement?: string;
+    @Column({ type: "varchar", length: 255, nullable: true})
+    attachement: any;
 
     @Column({ default: 0 })
     like: number;

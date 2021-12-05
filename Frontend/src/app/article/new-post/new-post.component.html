@@ -1,4 +1,4 @@
-<div class="row col-sm-8 col-sm-offset-2 m-auto">
+<mat-card class="col-10 m-auto">
     <div>
       <form [formGroup]="NewPostForm">
         <div class="form-group">
@@ -11,13 +11,17 @@
         </div>
         <div class="form-group">
           <label for="categorie">Catégorie</label>
-          <select id="categorie" class="form-control" formControlName="categorie" name="categorie">
-            <option value="works">Work</option>
-            <option value="event">Evenement</option>
-            <option value="Machine à café">Machine à café</option>
+          <select id="categorie" class="form-control" formControlName="categorie" name="categorie" [(ngModel)]="roleSelect" value='Work'>
+            <option value="Works">Work</option>
+            <option value="Event">Evenement</option>
+            <option value="Coffee break">Coffee Break</option>
           </select>
+          <label for="file">Média</label>
+          <input type="file" formControlName="attachement" name="attachement" class="form-control" (change)="selectedFile($event)">
+          <button type="submit" (click)="addPictureToData()">envoie photo</button>
+          <button type="submit"></button>
         </div>
-        <button type="submit" class="btn btn-primary align-self-center m-2" (click)="onSubmit()" [disabled]="NewPostForm.invalid">Enregistrer</button>
+        <button mat-raised-button aria-label="open signin form" class="btn--mid" type="submit" (click)="onSubmit()" [disabled]="NewPostForm.invalid">New post !</button>
       </form>
     </div>
-</div>
+</mat-card>

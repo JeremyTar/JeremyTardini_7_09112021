@@ -1,17 +1,19 @@
-<app-header></app-header>
-
-<app-new-post *ngIf="newPost == true "></app-new-post>
-<div class="container col-10">
-    <div class="row align-self-center">
-      <ul class='list-group p-0'>
-        <app-post *ngFor="let post of posts"
-                      [postId]="post.postId"
-                      [title]="post.title"
-                      [content]="post.content"
-                      [categorie]="post.categorie"
-                      [like]="post.like"
-                      [dislike]="post.dislike">
-        </app-post>
-      </ul>
-    </div>
+<header>
+  <h1 class="text-center">Groupomania</h1>
+  <nav>
+    <button class='btn' (click)="goOnUser()"><i class="fas fa-user"></i></button>
+    <button *ngIf="!newPost" id="newPost" (click)="openNewPost()">Ajouter un Post</button>
+    <button *ngIf="newPost" id="newPost" (click)="hideNewPost()">Fermer le nouveau post</button>
+    <button class='btn' (click)="userDeconnexion()"><i class="fas fa-power-off"></i></button>
+  </nav>
+</header>
+<div class="container">
+  <app-new-post *ngIf="newPost"></app-new-post>
+  <div class="row align-self-center">
+    <ul class='list-group p-0'>
+      <app-post *ngFor="let post of posts" [postId]="post.postId" [title]="post.title" [attachement]="post.attachement" [content]="post.content"
+        [categorie]="post.categorie" [like]="post.like" [dislike]="post.dislike">
+      </app-post>
+    </ul>
+  </div>
 </div>

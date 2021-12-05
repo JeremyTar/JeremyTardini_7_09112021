@@ -8,9 +8,10 @@ import { PostComponent } from '../post/post.component';
 })
 export class CommentsComponent implements OnInit {
 
-  @Input() content!: any;
-  @Input() commentId!: number;
+  user: string = "ethan";
 
+  @Input() content!: string;
+  @Input() commentId!: number;
   
   constructor() { }
 

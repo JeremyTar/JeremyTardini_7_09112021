@@ -36,6 +36,10 @@ export class PostService {
     return this.http.post('http://localhost:3000/api/posts', content);
   }
 
+  sendPostPhoto(formData: FormData): Observable<object> {
+    return this.http.post('http://localhost:3000/api/posts/file', formData);
+  }
+
   updatePost(id: number, content: Post): Observable<object>{
     return this.http.post('http://localhost:3000/api/posts' + id, content);
   }
