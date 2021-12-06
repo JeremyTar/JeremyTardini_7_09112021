@@ -1,5 +1,10 @@
-<li class="col-10 m-auto"> 
-    <h4>{{user}}</h4> 
-    <p>{{content}} work</p>
+<li class="m-auto mb-2">
+    <mat-card class="comment">
+        <mat-card-subtitle><h4>{{this.userInfos.firstName + " " + this.userInfos.lastName}}</h4></mat-card-subtitle>
+          
+    <mat-card-content>
+    <p>{{content}}</p>    
+    </mat-card-content>
+  </mat-card>   
 </li>
 

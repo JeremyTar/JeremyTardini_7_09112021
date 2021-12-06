@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, getConnection, Connection, Repository, OneToMany, ManyToOne, JoinColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColumn } from "typeorm";
 import { User } from "./User";
 import { Comment } from "./Comment";
 
@@ -8,30 +8,31 @@ export class Post {
     @PrimaryGeneratedColumn('increment')
     postId: number;
 
-    @Column({ type: "varchar", length: 20 })
+    @Column({ type: "varchar", length: 100 })
     title: string;
 
     @Column({ type: "text"})
     content: string;
 
-    @Column({ type: "varchar", length: 20, default: ''})
+    @Column({ type: "varchar", length: 20})
     categorie: string;
 
+    @Column({type: "varchar"})
+    createdUserId: string;
+
     @Column({ type: "varchar", length: 255, nullable: true})
-    attachement: any;
+    attachement: string;
 
-    @Column({ default: 0 })
-    like: number;
+    @Column({ type: 'simple-array'})
+    likes: string[];
 
-    @Column({ default: 0 })
-    dislike: number;
+    @Column({ type: 'simple-array'})
+    dislikes: string[];
 
     @OneToMany(() => Comment, comment => comment.post)
+    @JoinColumn()
     comments: Comment[];
     
-    @ManyToOne(() => User, user => user.posts, {
-        cascade: true
-    })
-    @JoinColumn()
+    @ManyToOne((type) => User, user => user.posts)
     user: User;
 }

@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, getConnection, Connection, Repository, ManyToMany, ManyToOne, JoinColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
 import { User } from "./User";
 import { Post } from "./Post";
 
@@ -10,15 +10,12 @@ export class Comment {
     @Column({ type: "varchar", length: 255 })
     content: string;
 
-    @ManyToOne(() => Post, post => post.comments, {
-        cascade: true
-    })
-    @JoinColumn()
-    post: Post | number;
+    @Column({type: "varchar", length: 50, nullable: false})
+    userTag: string;
 
-    @ManyToOne(() => User, user => user.comments, {
-        cascade: true
-    })
-    @JoinColumn()
-    user: User | string;
+    @ManyToOne(type => Post, post => post.comments)
+    post: any;
+
+    @ManyToOne(type => User, user => user.comments)
+    user: User;
 }

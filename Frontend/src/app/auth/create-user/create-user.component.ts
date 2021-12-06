@@ -29,7 +29,6 @@ export class CreateUserComponent implements OnInit {
 
   onSignup(): any {
     const formValue = this.signupForm.value;
-    console.log(formValue)
     this.userService.createUser(formValue)
       .subscribe((data) => {
         localStorage.setItem('key', JSON.stringify(data));
@@ -58,20 +57,4 @@ export class CreateUserComponent implements OnInit {
           console.log(this.errorMsg);
         });
   }
-  //   CreatAccompteclick() {
-  //     const newUser;
-  //     const email = this.loginForm.get('email').value;
-  //     const password = this.loginForm.get('password').value;
-
-  //     const firstName =
-  //     const lastName =
-
-  //     data.push(email, password, firstName, lastName,)
-
-  //     this.userService.createUser()
-  //     this.creatAccompte = this.userService.Creat;
-  //   }
-  // }
-
-
 }

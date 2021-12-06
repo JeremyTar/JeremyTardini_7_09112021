@@ -23,7 +23,7 @@ export class ArticleComponent implements OnInit {
   this.PostService.getAllpost()
   .subscribe((data) => {
       this.posts = data;
-      this.posts.reverse();
+      this.posts.reverse()
     })
 }
   userDeconnexion() {

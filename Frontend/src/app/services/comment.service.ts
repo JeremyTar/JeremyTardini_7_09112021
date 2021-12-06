@@ -11,6 +11,9 @@ export class CommentService {
     
     getAllCommentsOfPost(id: number): Observable<object> {
         return this.http.get(`http://localhost:3000/api/posts/${id}/comments`)
-      }
+    }
       
+    sendComment(id: number, content: string | null, userTag: string | null):Observable<object> {
+      return this.http.post(`http://localhost:3000/api/posts/${id}`, {content, userTag})
+    }
 }

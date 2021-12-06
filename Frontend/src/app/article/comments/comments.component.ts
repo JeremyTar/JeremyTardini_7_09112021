@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PostComponent } from '../post/post.component';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-comments',
@@ -8,13 +8,18 @@ import { PostComponent } from '../post/post.component';
 })
 export class CommentsComponent implements OnInit {
 
-  user: string = "ethan";
-
   @Input() content!: string;
   @Input() commentId!: number;
+  @Input() userTag!: string;
+
+  userInfos!: any;
   
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
+    this.userService.getUser(this.userTag)
+    .subscribe((data) => {
+      this.userInfos = data;
+    })
   }
 }

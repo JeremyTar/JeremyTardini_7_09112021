@@ -4,6 +4,7 @@ export interface Post {
     content: string;
     attachement: any;
     categorie: string,
-    like: number,
-    dislike: number,
+    likes: string[],
+    dislikes: string[],
+    createdUser: string,
 }

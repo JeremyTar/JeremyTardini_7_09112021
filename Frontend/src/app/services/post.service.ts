@@ -16,7 +16,7 @@ export class PostService {
   getToken() {
     const token = (localStorage.getItem('token'))
     return token;
-}
+  }
   getUserId() {
     const userId = (localStorage.getItem('userId'))
     return userId
@@ -29,7 +29,7 @@ export class PostService {
   }
 
   getOnepost(id: number): Observable<object> {
-    return this.http.get('http://localhost:3000/api/posts' + id)
+    return this.http.get(`http://localhost:3000/api/posts/${id}`)
   }
 
   sendPost(content: Post) {
@@ -40,12 +40,19 @@ export class PostService {
     return this.http.post('http://localhost:3000/api/posts/file', formData);
   }
 
-  updatePost(id: number, content: Post): Observable<object>{
-    return this.http.post('http://localhost:3000/api/posts' + id, content);
+  updatePost(id: number, content: Post): Observable<object> {
+    return this.http.post(`http://localhost:3000/api/posts/${id}`, content);
   }
 
-  deletePost(id: number): Observable<object> {
-    return this.http.delete('http://localhost:3000/api/posts' + id)
+  addLike(id: number, userId: string | null): Observable<object> {
+    return this.http.put(`http://localhost:3000/api/posts/${id}/like`, { userId })
+  }
+
+  addDislike(id: number, userId: string | null): Observable<object> {
+    return this.http.put(`http://localhost:3000/api/posts/${id}/dislike`, { userId })
+  }
+  deletePost(id: number) {
+    return this.http.delete(`http://localhost:3000/api/posts/${id}`)
   }
 }
 

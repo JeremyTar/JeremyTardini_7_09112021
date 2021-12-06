@@ -1,4 +1,5 @@
 export interface User {
+    userId: string;
     avatarUrl: string;
     firstName: string;
     lastName: string;
@@ -6,5 +7,4 @@ export interface User {
     password: string;
     role: string;
     bio: string;
-    
 }

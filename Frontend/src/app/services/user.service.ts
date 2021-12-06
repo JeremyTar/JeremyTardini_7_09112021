@@ -32,7 +32,6 @@ export class UserService {
     }
 
 
-
     loginUser(email: string, password: string): Observable<object> {
         return this.http.post('http://localhost:3000/api/users/login', { email, password });
     }

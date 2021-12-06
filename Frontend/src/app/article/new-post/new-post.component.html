@@ -19,7 +19,6 @@
           <label for="file">Média</label>
           <input type="file" formControlName="attachement" name="attachement" class="form-control" (change)="selectedFile($event)">
           <button type="submit" (click)="addPictureToData()">envoie photo</button>
-          <button type="submit"></button>
         </div>
         <button mat-raised-button aria-label="open signin form" class="btn--mid" type="submit" (click)="onSubmit()" [disabled]="NewPostForm.invalid">New post !</button>
       </form>

@@ -1,0 +1,118 @@
+#buttoncomment {
+  border: 2px ridge #F44336;
+  border-radius: 50px;
+  background: #FFFCFC;
+  color: #424242;
+  display: flex;
+  justify-content: center;
+}
+
+li {
+  list-style: none;
+}
+
+.posts__card {
+  border: 2px ridge #ffd7d7;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.posts__card__info {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+}
+.posts__card__info h3 {
+  font-weight: 600;
+  font-size: 100%;
+  margin-bottom: 5px;
+}
+.posts__card__info button {
+  background-color: transparent;
+  border: none;
+}
+.posts__card__info button i {
+  color: #F44336;
+  font-size: 0.8em;
+}
+.posts__card__info span {
+  font-size: 1.1em;
+  font-weight: 500;
+}
+.posts__card__like {
+  width: 250px;
+  margin: auto;
+  display: flex;
+  justify-content: space-evenly;
+  color: #ffd7d7;
+  font-size: 1.5em;
+}
+.posts__card__like p {
+  margin: 5px;
+}
+.posts__card__like__button {
+  background-color: transparent;
+  border: none;
+}
+.posts__card__like__button i {
+  color: #ffd7d7;
+}
+.posts__card__comments {
+  width: 100%;
+}
+.posts__card__comments__form {
+  border: 5px white;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+.posts__card__comments__form__size {
+  width: 100%;
+  max-width: 700px;
+  margin-top: 10px;
+}
+.posts__card__comments__form__button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.posts__card__comments__form__button button {
+  background-color: #fffcfc;
+  border-radius: 25px;
+  border: 2px ridge #F44336;
+  margin: 20px;
+}
+.posts__card__comments__form__button button i {
+  color: #F44336;
+  font-size: 1.4em;
+}
+.posts__card__comments__form__input {
+  width: 100%;
+  height: 125px;
+  background-color: #fffcfc;
+}
+
+.card {
+  height: auto;
+}
+.card h3 {
+  font-weight: 500;
+}
+.card .img-card {
+  height: auto;
+  max-height: 350px;
+  width: 290px;
+  margin: auto;
+}
+.card .img-card img {
+  object-fit: cover;
+  image-rendering: pixelated;
+}
+
+.like p {
+  padding-right: 10px;
+  margin: 0;
+}

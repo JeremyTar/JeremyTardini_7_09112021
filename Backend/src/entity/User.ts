@@ -32,9 +32,11 @@ export class User {
     @Column({ default: false })
     isAdmin: boolean;
 
-    @OneToMany(() => Post, post => post.user, )
+    @OneToMany((type) => Post, post => post.user)
+    @JoinColumn()
     posts: Post[];
 
     @OneToMany(() => Comment, comment => comment.user)
+    @JoinColumn()
     comments: Comment[];
 }

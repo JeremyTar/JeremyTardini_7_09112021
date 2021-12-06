@@ -25,12 +25,15 @@ export class NewPostComponent implements OnInit {
       title: ['', Validators.required],
       content: ['', Validators.required],
       categorie: ['', Validators.required],
-      attachement: ['', Validators.required],
     });
   }
 
   onSubmit() {
     const Newpost = this.NewPostForm.value;
+    console.log(Newpost)
+    let user = localStorage.getItem("userId")
+    console.log(user)
+    Newpost.createdUserId = user
     console.log(Newpost)
     this.postService.sendPost(Newpost)
       .subscribe((data) => {
@@ -43,7 +46,7 @@ export class NewPostComponent implements OnInit {
 
   addPictureToData() {
     const fd = new FormData();
-    fd.append("file", this.postFile)
+    fd.set("file", this.postFile)
     localStorage.setItem("photo", JSON.stringify(fd))
     this.postService.sendPostPhoto(fd)
       .subscribe(

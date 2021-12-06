@@ -31,9 +31,12 @@ export async function sendPost(req: Request, res: Response, next: NextFunction) 
         NewPost.title = req.body.title;
         NewPost.content = req.body.content;
         NewPost.categorie = req.body.categorie;
-        NewPost.attachement = `${req.protocol}://${req.get('host')}/posts_images/${req.file.filename}`           
+        NewPost.likes = []
+        NewPost.dislikes = []
+        NewPost.createdUserId = req.body.createdUserId;
+        NewPost.user = req.body.createdUserId
+        // NewPost.attachement = `${req.protocol}://${req.get('host')}/posts_images/${req.file.filename}`           
         const result = await repository.save(NewPost);
-        console.log(result)
         res.send(result);
     }
     catch (err) {
@@ -41,17 +44,47 @@ export async function sendPost(req: Request, res: Response, next: NextFunction) 
     }
 };
 
+export async function likePost(req: Request, res: Response, next: NextFunction) {
+    const repository = getConnection().getRepository(Post);
+    const UpdatePost = await repository.findOne(req.params.id);
+    if (UpdatePost.likes.some(like => like === req.body.userId)) {
+        UpdatePost.likes.splice(UpdatePost.likes.indexOf(req.body.userId), 1);
+        const result = await repository.save(UpdatePost);
+        res.send(result)
+    }
+    else {
+        UpdatePost.likes.push(req.body.userId);
+        const result = await repository.save(UpdatePost);
+        res.send(result)
+    }
+}
+
+export async function dislikePost(req: Request, res: Response, next: NextFunction) {
+    const repository = getConnection().getRepository(Post);
+    const UpdatePost = await repository.findOne(req.params.id);
+    if (UpdatePost.dislikes.some(dislike => dislike === req.body.userId)) {
+        UpdatePost.dislikes.splice(UpdatePost.likes.indexOf(req.body.userId), 1);
+        const result = await repository.save(UpdatePost);
+        res.send(result)
+    }
+    else {
+        UpdatePost.dislikes.push(req.body.userId);
+        const result = await repository.save(UpdatePost);
+        res.send(result)
+    }
+}
+
+
 export async function savePost(req: Request, res: Response, next: NextFunction) {
     try {
         const repository = getConnection().getRepository(Post);
         const UpdatePost = await repository.findOne(req.params.id);
         UpdatePost.title = req.body.title;
         UpdatePost.content = req.body.content;
-        UpdatePost.attachement = `${req.protocol}://${req.get('host')}/posts_images/${req.file.filename}`             
+        // UpdatePost.attachement = `${req.protocol}://${req.get('host')}/posts_images/${req.file.filename}`             
         UpdatePost.categorie = req.body.categorie;
-
+        UpdatePost.user = req.body.createdUserId
         const result = await repository.save(UpdatePost);
-        console.log(result)
         res.send(result);
     }
     catch (err) {
@@ -67,7 +100,7 @@ export async function deletePost(req: Request, res: Response, next: NextFunction
     try {
         const repository = getConnection().getRepository(Post);
         await repository.delete(req.params.id);
-        res.send(`Post id : ${req.params.id} was delete`);
+        res.send();
     }
     catch (err) {
         return next(err);

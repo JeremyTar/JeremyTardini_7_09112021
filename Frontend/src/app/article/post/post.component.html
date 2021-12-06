@@ -1,26 +1,57 @@
-<li class='card mt-3'>
-  <mat-card>
-    <mat-card-title>
-      <h3>{{title}}</h3>
-    </mat-card-title>
-    <mat-card-subtitle>
-      <p>Appartient à la catégorie :<br><strong>{{ categorie }}</strong></p>
-    </mat-card-subtitle>
-      <img mat-card-image class="img-card d-flex align-items-self" [src]="attachement">
-    <mat-card-content>
-      <p>{{ content }}</p>
-      <div class="d-flex like">
-        <p><i  class="far fa-thumbs-up"><i *ngIf="isLiked" class="fas fa-thumbs-up"></i></i>{{ like }}</p>
-        <p><i class="far fa-thumbs-down"></i><i *ngIf="isLiked" class="fas fa-thumbs-down"></i>{{ dislike }}</p>
-      </div>
-    </mat-card-content>
-    <button *ngIf="!showComments" mat-raised-button aria-label="open signin form" class="btn--mid m-auto"
-      id="buttoncomment" (click)="openComments()">Show comments<mat-icon>filter_list</mat-icon></button>
-    <div *ngIf="showComments">
-      <app-comments *ngFor="let comment of comments" [commentId]="comment.commentId" [content]="comment.content">
-      </app-comments>
-      <input type="text">
+<li class='mt-3'>
+  <mat-card class="posts__card">
+    <div class="posts__card__info">
+      <mat-card-title class="posts__card__info__title">
+        <h3>{{title}}</h3>
+        <button *ngIf="currentUtilisator || this.isAdmin" class="mat-button-wrapper" (click)="deletePost()"><i class="fa fa-trash"
+        aria-hidden="true"></i></button>
+      </mat-card-title>
+      <mat-card-subtitle>
+        <p>Created by : <span>{{ firstName + ' ' + lastName }}</span></p>
+      </mat-card-subtitle>
+      <mat-card-subtitle>
+        <p>Category : <span>{{ categorie }}</span></p>
+      </mat-card-subtitle>
     </div>
-    <button *ngIf="showComments" mat-raised-button aria-label="open signin form" class="btn--mid m-auto"
-      id="buttoncomment" (click)="closeComment()">Close comments<mat-icon>filter_list</mat-icon></button>
-  </mat-card>
+    <div>
+      <img mat-card-image class="img-card d-flex align-items-self" [src]="attachement">
+      <mat-card-content>
+        <p class="text-center">{{ content }}</p>
+        <div class="d-flex posts__card__like">
+          <div class="d-flex">
+            <button (click)="onLiked()" class="posts__card__like__button" [disabled]="isDisliked"><i *ngIf="!isLiked"
+                class="far fa-thumbs-up"></i><i *ngIf="isLiked" class="fas fa-thumbs-up"></i></button>
+            <p>{{ this.nbrOfLike }}</p>
+          </div>
+          <div class="d-flex">
+            <button (click)="onDisliked()" class="posts__card__like__button" [disabled]="isLiked"><i *ngIf="!isDisliked"
+                class="far fa-thumbs-down"></i><i *ngIf="isDisliked"
+                class="fas fa-thumbs-down posts__card__like__button"></i></button>
+            <p>{{ this.nbrOfDislike }}</p>
+          </div>
+        </div>
+      </mat-card-content>
+    </div>
+    <div class="posts__card__comments">
+      <button *ngIf="!showComments" mat-raised-button aria-label="open signin form" class="btn--mid m-auto"
+      id="buttoncomment" (click)="openComments()">Show comments<mat-icon>filter_list</mat-icon></button>
+      <div *ngIf="showComments" class="col-12" >
+        <app-comments *ngFor="let comment of comments" 
+        [commentId]="comment.commentId" 
+        [content]="comment.content"
+        [userTag]="comment.userTag">
+        </app-comments>
+          <form class="posts__card__comments__form" [formGroup]="commentForm" (ngSubmit)="AddComment()">
+            <div class="align-items-self align-self-center posts__card__comments__form__size">
+                <input matInput placeholder="Enter your comment ..." type="text" class="form-control posts__card__comments__form__input" id="content" formControlName="content" required>
+                <div class="posts__card__comments__form__button">
+                  <button mat-raised-button type="submit"><i class="far fa-paper-plane"></i></button>
+                </div>
+            </div>
+          </form>
+      </div>
+      <button *ngIf="showComments" mat-raised-button aria-label="open signin form" class="btn--mid m-auto"
+        id="buttoncomment" (click)="closeComment()">Close comments<mat-icon>filter_list</mat-icon></button>
+    </div>
+    
+</mat-card>
