@@ -28,7 +28,7 @@
 
   </mat-card>
 
-  <mat-card class="user__personnal">
+  <mat-card class="user__personnal mb-2">
     <mat-card-title>Personnal informations</mat-card-title>
     <div class="d-flex justify-content-around">
       <div class="user__personnal__firstname">
@@ -42,7 +42,7 @@
         <form *ngIf="showFirstName" (ngSubmit)="changeFirstName(firstName)" #firstName="ngForm">
           <label>Enter your firstname</label>
           <div class="d-flex">
-            <input type="text" class="form-control" id="firstName" name="FirstName"
+            <input type="text" class="form-control" id="firstName" name="firstName"
             required ngModel>
             <button type="submit" class="modifyButton"><i class="far fa-paper-plane"></i></button>
           </div>
@@ -90,12 +90,13 @@
       </div>
     </div>
   </mat-card>
+
   <mat-card class="user__accompt">
     <mat-card-title>Accompt informations</mat-card-title>
-    <!-- <div>
+    <div>
       <button type="submit" (click)="deleteAccompte()">Delete your accompt</button>
-      <button type="submit" (click)="showPassword()">Change your password</button>
-      <button type="submit" (click)="modifyEmail()">Change your email</button>
-    </div> -->
+      <!-- <button type="submit" (click)="showPassword()">Change your password</button>
+      <button type="submit" (click)="modifyEmail()">Change your email</button> -->
+    </div>
   </mat-card>
 </main>

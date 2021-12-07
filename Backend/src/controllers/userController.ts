@@ -148,7 +148,7 @@ export async function deleteUser(req: Request, res: Response, next: NextFunction
     try {
         const userRepository = await getConnection().getRepository(User);
         await userRepository.delete(req.params.id);
-        res.send(`User id : ${req.params.id} was delete`);
+        res.send();
     }
     catch (err) {
         return next(err);

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
 import { UserService } from '../services/user.service';
-import {FormControl, FormGroup, FormBuilder, Validators, NgForm} from '@angular/forms';
-import { User } from "../user/user.model"
+import { FormControl, NgForm } from '@angular/forms';
+import { PostService } from '../services/post.service';
+import { CommentService } from '../services/comment.service';
 
 @Component({
   selector: 'app-user',
@@ -12,7 +13,7 @@ import { User } from "../user/user.model"
 export class UserComponent implements OnInit {
 
   authStatus!: boolean;
-  changeAvatar:boolean = false
+  changeAvatar: boolean = false
   avatarFile!: string;
 
   // For component
@@ -23,35 +24,40 @@ export class UserComponent implements OnInit {
 
   disableSelect = new FormControl;
 
-  user!: User | any;
+  posts!: any;
+  comments!: any;
+  user!: any;
   haveBio: boolean = false;
   haveAvatar: boolean = false;
   haveRole: boolean = false;
 
-  constructor(private router: Router,private userService: UserService) { }
+  constructor(private router: Router,
+    private userService: UserService,
+    private postService: PostService,
+    private commentService: CommentService) { }
 
   async ngOnInit(): Promise<void> {
     console.log(localStorage.getItem("userId"));
     this.userService.getUser(localStorage.getItem("userId"))
-    .subscribe(data => {
-      this.user = data
-      console.log(data)
-      if(this.user.bio) {
-        this.haveBio = true
-      }
-      if(this.user.avatarUrl) {
-        this.haveAvatar = true
-      }
-      if(this.user.role) {
-        this.haveRole = true
-      }
-    })
+      .subscribe(data => {
+        this.user = data
+        console.log(data)
+        if (this.user.bio) {
+          this.haveBio = true
+        }
+        if (this.user.avatarUrl) {
+          this.haveAvatar = true
+        }
+        if (this.user.role) {
+          this.haveRole = true
+        }
+      })
 
   }
 
   // personnal FUNCTION
   modifyFirstName() {
-    if(this.showFirstName) {
+    if (this.showFirstName) {
       this.showFirstName = false
     }
     else {
@@ -60,13 +66,15 @@ export class UserComponent implements OnInit {
   }
   changeFirstName(form: NgForm) {
     this.userService.updateUser(form.value, this.user.userId)
-    .subscribe((response) => {
-      console.log(response)
-    })
+      .subscribe((response) => {
+        console.log(response)
+        this.ngOnInit()
+        this.showFirstName = false
+      })
   }
 
   modifyLastName() {
-    if(this.showLastName) {
+    if (this.showLastName) {
       this.showLastName = false
     }
     else {
@@ -75,45 +83,68 @@ export class UserComponent implements OnInit {
   }
   changeLastName(form: NgForm) {
     this.userService.updateUser(form.value, this.user.userId)
-    .subscribe((response) => {
-      console.log(response)
-    })
+      .subscribe((response) => {
+        console.log(response)
+        this.ngOnInit()
+        this.showLastName = false
+      })
   }
 
   modifyRole() {
-    if(this.showRole) {
+    if (this.showRole) {
       this.showRole = false
     }
     else {
-      this.showRole= true
+      this.showRole = true
     }
   }
   changeRole(form: NgForm) {
     this.userService.updateUser(form.value, this.user.userId)
-    .subscribe((response) => {
-      console.log(response)
-  })
+      .subscribe((response) => {
+        console.log(response)
+        this.ngOnInit()
+        this.showRole = false
+      })
   }
 
-// Accompt FUNCTION
+  // Accompt FUNCTION
   // showPassword() {
 
   // }
 
-  // deleteAccompte() {
-  //   this.userService.deleteUser(this.user.userId)
-  //   .subscribe(() =>{
-  //    this.router.navigate(["/"]) 
-  //   })
-  // }
-  
+  deleteAccompte() {
+
+    this.commentService.getAllCommentsByUser(this.user.userId)
+      .subscribe((data) => {
+        console.log(data)
+        this.comments = data
+        this.comments.forEach((elem: any) => {
+          this.commentService.deleteComments(elem.commentId)
+            .subscribe(() => {
+              console.log("comments user delete")
+
+            })
+        });
+      })
+    this.postService.getAllpostByUser(this.user.userId)
+      .subscribe((data) => {
+        console.log(data)
+        this.posts = data
+        this.posts.forEach((elem: any) => {
+          this.postService.deletePost(elem.postId)
+            .subscribe(() => {
+              console.log("posts user delete")
+              this.userService.deleteUser(this.user.userId)
+                .subscribe(() => {
+                  console.log("User completely delete")
+                })
+            })
+        })
+      })
+  }
   // modifyEmail() {
 
   // }
-
-  uploadAvatar() {
-    
-  }
 
   // selectedFileAvatar(event: any) {
   //   this.avatarFile = event.target.files[0];

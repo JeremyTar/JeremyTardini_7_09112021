@@ -6,6 +6,16 @@ import * as dotenv from "dotenv";
 import { getUserIdByToken } from '../middleware/auth';
 dotenv.config()
 
+export async function getAllCommentsByUser(req: Request, res: Response, next: NextFunction) {
+    try {
+        const commmentReposiroty = getConnection().getRepository(Comment);
+        const Allcomments = await commmentReposiroty.find({ where: { userTag: req.params.id } })
+        res.send(Allcomments)
+    }
+    catch (err) {
+        return next(err);
+    }
+}
 
 export async function getCommentsOfPost(req: Request, res: Response, next: NextFunction) {
     try {
@@ -54,7 +64,7 @@ export async function deleteComment(req: Request, res: Response, next: NextFunct
     try {
         const Commentrepository = getConnection().getRepository(Comment);
         await Commentrepository.delete(req.params.id);
-        res.send(`Comment id : ${req.params.id} was delete`);
+        res.send();
     }
     catch (err) {
         return next(err);

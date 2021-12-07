@@ -13,6 +13,17 @@ export async function getAllPosts(req: Request, res: Response, next: NextFunctio
     }
 }
 
+export async function getAllPostsByUser(req: Request, res: Response, next: NextFunction) {
+    try {
+        const repository = getConnection().getRepository(Post);
+        const AllPosts = await repository.find({ where: { createdUserId: req.params.id } })
+        res.send(AllPosts)
+    }
+    catch (err) {
+        return next(err)
+    }
+}
+
 export async function getOnePost(req: Request, res: Response, next: NextFunction) {
     try {
         const repository = getConnection().getRepository(Post);

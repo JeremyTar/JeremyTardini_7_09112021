@@ -22,7 +22,9 @@ export class PostService {
     return userId
   }
 
-
+  getAllpostByUser(id: string): Observable<object> {
+    return this.http.get('http://localhost:3000/api/users/' + id + '/posts')
+  }
 
   getAllpost(): Observable<object> {
     return this.http.get('http://localhost:3000/api/posts')
