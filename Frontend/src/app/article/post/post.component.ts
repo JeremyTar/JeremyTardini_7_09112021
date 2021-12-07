@@ -1,11 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommentService } from 'src/app/services/comment.service';
 import { UserService } from 'src/app/services/user.service';
-import { User } from 'src/app/user/user.model';
 import { PostService } from 'src/app/services/post.service';
 import { ArticleComponent } from '../article.component';
-import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 
 @Component({
@@ -24,7 +22,7 @@ export class PostComponent implements OnInit {
   @Input() dislikes!: string[];
   @Input() createdUserId!: string;
 
-  commentForm!:FormGroup;
+  commentForm!: FormGroup;
   showComments: boolean = false;
   comments!: any;
   post!: any;
@@ -44,18 +42,19 @@ export class PostComponent implements OnInit {
 
 
   constructor(
-    private commentsService: CommentService,
+    private commentService: CommentService,
     private userService: UserService,
     private postService: PostService,
-    private commentService: CommentService,
     private articleComponent: ArticleComponent,
     private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
 
+
     this.commentForm = this.formBuilder.group({
-      content: ['', [Validators.required]]
-    });
+      content: ['', Validators.required]
+    
+    })
     // get informations
     const UserId = localStorage.getItem('userId')
     const userIdPost = this.createdUserId
@@ -72,10 +71,10 @@ export class PostComponent implements OnInit {
       })
     // to get if tis admin
     this.userService.getUser(UserId)
-    .subscribe((data) => {
-      this.LocalUserInformations = data
-      this.isAdmin = this.LocalUserInformations.isAdmin
-    })
+      .subscribe((data) => {
+        this.LocalUserInformations = data
+        this.isAdmin = this.LocalUserInformations.isAdmin
+      })
     // set like status
     if (this.likes == null) {
       this.nbrOfLike = 0;
@@ -100,24 +99,26 @@ export class PostComponent implements OnInit {
   // Open / CLose comments
 
   openComments() {
-    this.showComments = true
-    this.commentsService.getAllCommentsOfPost(this.postId)
-      .subscribe((data) => {
-        this.comments = data;
-        this.comments.reverse()
-      })
+      this.commentService.getAllCommentsOfPost(this.postId)
+        .subscribe((data) => {
+          this.comments = data;
+          this.comments.reverse()
+          this.showComments = true
+        })      
   }
+
   closeComment() {
     this.showComments = false
   }
 
   AddComment() {
     const formValue = this.commentForm.value;
-    const userTag = localStorage.getItem('userId')
-     this.commentsService.sendComment(this.postId, formValue.content, userTag)
-     .subscribe(() => {
-       this.openComments()
-  })
+    console.log(formValue)
+    formValue.userTag = localStorage.getItem('userId')
+    this.commentService.sendComment(this.postId, formValue)
+    .subscribe(() => {
+    this.openComments()
+    })
   }
 
   // Option Like
@@ -150,15 +151,10 @@ export class PostComponent implements OnInit {
       })
   }
 
-  deletePost() {
+  async deletePost() {
     this.postService.deletePost(this.postId)
       .subscribe(() => {
         this.articleComponent.ngOnInit();
       })
   }
-
 }
-
-
-
-

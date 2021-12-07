@@ -10,6 +10,6 @@ UserRouter.post('/users/login', userLogin);
 UserRouter.get('/users', getAllusers);
 UserRouter.get('/users/:id', getOneUser);
 UserRouter.post('/users', createUser);
-UserRouter.put('/users/:id', Multer, updateUser);
+UserRouter.put('/users/:id', updateUser);
 UserRouter.put('/users/password/:id', newPassword)
 UserRouter.delete('/users/:id', deleteUser);

@@ -27,7 +27,6 @@ export async function addCommentToPost(req: Request, res: Response, next: NextFu
         NewComment.content = req.body.content;
         NewComment.userTag = req.body.userTag;
         NewComment.post = parseInt(req.params.id);
-        NewComment.user = userId
         console.log(NewComment)
         const result = await Commentrepository.save(NewComment);
         res.send(result)

@@ -13,9 +13,8 @@ export class Comment {
     @Column({type: "varchar", length: 50, nullable: false})
     userTag: string;
 
-    @ManyToOne(type => Post, post => post.comments)
-    post: any;
-
-    @ManyToOne(type => User, user => user.comments)
-    user: User;
+    @ManyToOne(type => Post, post => post.comments, {
+        onDelete: 'CASCADE',
+    })
+    post: number;
 }

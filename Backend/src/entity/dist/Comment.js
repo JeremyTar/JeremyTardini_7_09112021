@@ -8,7 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 exports.Comment = void 0;
 var typeorm_1 = require("typeorm");
-var User_1 = require("./User");
 var Post_1 = require("./Post");
 var Comment = /** @class */ (function () {
     function Comment() {
@@ -23,11 +22,10 @@ var Comment = /** @class */ (function () {
         typeorm_1.Column({ type: "varchar", length: 50, nullable: false })
     ], Comment.prototype, "userTag");
     __decorate([
-        typeorm_1.ManyToOne(function (type) { return Post_1.Post; }, function (post) { return post.comments; })
+        typeorm_1.ManyToOne(function (type) { return Post_1.Post; }, function (post) { return post.comments; }, {
+            onDelete: 'CASCADE'
+        })
     ], Comment.prototype, "post");
-    __decorate([
-        typeorm_1.ManyToOne(function (type) { return User_1.User; }, function (user) { return user.comments; })
-    ], Comment.prototype, "user");
     Comment = __decorate([
         typeorm_1.Entity()
     ], Comment);

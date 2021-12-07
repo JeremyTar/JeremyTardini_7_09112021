@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
 import { UserService } from '../services/user.service';
-import { User } from './user.model';
-import {FormControl} from '@angular/forms';
+import {FormControl, FormGroup, FormBuilder, Validators, NgForm} from '@angular/forms';
+import { User } from "../user/user.model"
 
 @Component({
   selector: 'app-user',
@@ -13,37 +13,112 @@ export class UserComponent implements OnInit {
 
   authStatus!: boolean;
   changeAvatar:boolean = false
-  avatarFile!: File;
+  avatarFile!: string;
 
-  disableSelect = new FormControl(false);
+  // For component
+  showLastName = false;
+  showFirstName = false;
+  showEmail = false;
+  showRole = false
 
-  user!: any;
+  disableSelect = new FormControl;
+
+  user!: User | any;
+  haveBio: boolean = false;
+  haveAvatar: boolean = false;
+  haveRole: boolean = false;
 
   constructor(private router: Router,private userService: UserService) { }
 
-  ngOnInit(): void {
-    const user = localStorage.getItem("userId")
-    this.userService.getUser(user)
-    .subscribe(response => {
+  async ngOnInit(): Promise<void> {
+    console.log(localStorage.getItem("userId"));
+    this.userService.getUser(localStorage.getItem("userId"))
+    .subscribe(data => {
+      this.user = data
+      console.log(data)
+      if(this.user.bio) {
+        this.haveBio = true
+      }
+      if(this.user.avatarUrl) {
+        this.haveAvatar = true
+      }
+      if(this.user.role) {
+        this.haveRole = true
+      }
+    })
+
+  }
+
+  // personnal FUNCTION
+  modifyFirstName() {
+    if(this.showFirstName) {
+      this.showFirstName = false
+    }
+    else {
+      this.showFirstName = true
+    }
+  }
+  changeFirstName(form: NgForm) {
+    this.userService.updateUser(form.value, this.user.userId)
+    .subscribe((response) => {
       console.log(response)
-      this.user = response
-      console.log(this.user.role)
     })
   }
 
+  modifyLastName() {
+    if(this.showLastName) {
+      this.showLastName = false
+    }
+    else {
+      this.showLastName = true
+    }
+  }
+  changeLastName(form: NgForm) {
+    this.userService.updateUser(form.value, this.user.userId)
+    .subscribe((response) => {
+      console.log(response)
+    })
+  }
+
+  modifyRole() {
+    if(this.showRole) {
+      this.showRole = false
+    }
+    else {
+      this.showRole= true
+    }
+  }
+  changeRole(form: NgForm) {
+    this.userService.updateUser(form.value, this.user.userId)
+    .subscribe((response) => {
+      console.log(response)
+  })
+  }
+
+// Accompt FUNCTION
+  // showPassword() {
+
+  // }
+
+  // deleteAccompte() {
+  //   this.userService.deleteUser(this.user.userId)
+  //   .subscribe(() =>{
+  //    this.router.navigate(["/"]) 
+  //   })
+  // }
+  
+  // modifyEmail() {
+
+  // }
 
   uploadAvatar() {
     
   }
 
-  selectedFileAvatar(event: any) {
-    this.avatarFile = event.target.files[0];
-    console.log(this.avatarFile)
-  }
-
-  getUser(){
-    console.log(this.user)
-  }
+  // selectedFileAvatar(event: any) {
+  //   this.avatarFile = event.target.files[0];
+  //   console.log(this.avatarFile)
+  // }
   goOnPosts() {
     this.router.navigate(['main'])
   }

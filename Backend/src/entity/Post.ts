@@ -29,10 +29,13 @@ export class Post {
     @Column({ type: 'simple-array'})
     dislikes: string[];
 
-    @OneToMany(() => Comment, comment => comment.post)
+    @OneToMany(() => Comment, comment => comment.post, {
+    cascade: true })
     @JoinColumn()
     comments: Comment[];
     
-    @ManyToOne((type) => User, user => user.posts)
+    @ManyToOne((type) => User, user => user.posts, {
+        onDelete: 'CASCADE',
+    })
     user: User;
 }

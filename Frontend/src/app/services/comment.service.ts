@@ -13,7 +13,7 @@ export class CommentService {
         return this.http.get(`http://localhost:3000/api/posts/${id}/comments`)
     }
       
-    sendComment(id: number, content: string | null, userTag: string | null):Observable<object> {
-      return this.http.post(`http://localhost:3000/api/posts/${id}`, {content, userTag})
+    sendComment(id: number, content: string):Observable<object> {
+      return this.http.post(`http://localhost:3000/api/posts/${id}`, content)
     }
 }

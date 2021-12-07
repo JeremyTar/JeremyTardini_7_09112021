@@ -24,11 +24,11 @@ export class UserService {
     }
 
     updateUser(data: User, id: any): Observable<object> {
-        return this.http.put<User>('http://localhost:3000/api/users/' + id, data);
+        return this.http.put<User>(`http://localhost:3000/api/users/${id}`, data);
     }
 
     deleteUser(id: any): Observable<object> {
-        return this.http.request('DELETE', 'http://localhost:3000/api/users/' + id);
+        return this.http.delete(`http://localhost:3000/api/users/${id}`);
     }
 
 

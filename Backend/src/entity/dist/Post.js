@@ -38,11 +38,15 @@ var Post = /** @class */ (function () {
         typeorm_1.Column({ type: 'simple-array' })
     ], Post.prototype, "dislikes");
     __decorate([
-        typeorm_1.OneToMany(function () { return Comment_1.Comment; }, function (comment) { return comment.post; }),
+        typeorm_1.OneToMany(function () { return Comment_1.Comment; }, function (comment) { return comment.post; }, {
+            cascade: true
+        }),
         typeorm_1.JoinColumn()
     ], Post.prototype, "comments");
     __decorate([
-        typeorm_1.ManyToOne(function (type) { return User_1.User; }, function (user) { return user.posts; })
+        typeorm_1.ManyToOne(function (type) { return User_1.User; }, function (user) { return user.posts; }, {
+            onDelete: 'CASCADE'
+        })
     ], Post.prototype, "user");
     Post = __decorate([
         typeorm_1.Entity()

@@ -34,7 +34,7 @@ export async function sendPost(req: Request, res: Response, next: NextFunction) 
         NewPost.likes = []
         NewPost.dislikes = []
         NewPost.createdUserId = req.body.createdUserId;
-        NewPost.user = req.body.createdUserId
+        // NewPost.user = req.body.createdUserId
         // NewPost.attachement = `${req.protocol}://${req.get('host')}/posts_images/${req.file.filename}`           
         const result = await repository.save(NewPost);
         res.send(result);
@@ -83,7 +83,7 @@ export async function savePost(req: Request, res: Response, next: NextFunction) 
         UpdatePost.content = req.body.content;
         // UpdatePost.attachement = `${req.protocol}://${req.get('host')}/posts_images/${req.file.filename}`             
         UpdatePost.categorie = req.body.categorie;
-        UpdatePost.user = req.body.createdUserId
+        // UpdatePost.user = req.body.createdUserId
         const result = await repository.save(UpdatePost);
         res.send(result);
     }

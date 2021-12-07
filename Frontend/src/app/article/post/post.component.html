@@ -39,11 +39,13 @@
         <app-comments *ngFor="let comment of comments" 
         [commentId]="comment.commentId" 
         [content]="comment.content"
-        [userTag]="comment.userTag">
+        [userTag]="comment.userTag"
+        [postId]="comment.post">
         </app-comments>
           <form class="posts__card__comments__form" [formGroup]="commentForm" (ngSubmit)="AddComment()">
             <div class="align-items-self align-self-center posts__card__comments__form__size">
-                <input matInput placeholder="Enter your comment ..." type="text" class="form-control posts__card__comments__form__input" id="content" formControlName="content" required>
+              <label for="comment"></label>
+                <input matInput placeholder="Enter your comment ..." formControlName="content" type="text" class="form-control posts__card__comments__form__input" id="content" required>
                 <div class="posts__card__comments__form__button">
                   <button mat-raised-button type="submit"><i class="far fa-paper-plane"></i></button>
                 </div>
@@ -51,7 +53,7 @@
           </form>
       </div>
       <button *ngIf="showComments" mat-raised-button aria-label="open signin form" class="btn--mid m-auto"
-        id="buttoncomment" (click)="closeComment()">Close comments<mat-icon>filter_list</mat-icon></button>
+        id="buttoncomment" (click)="openComments()">Close comments<mat-icon>filter_list</mat-icon></button>
     </div>
     
 </mat-card>

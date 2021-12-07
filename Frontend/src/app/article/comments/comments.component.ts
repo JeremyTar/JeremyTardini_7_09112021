@@ -11,6 +11,7 @@ export class CommentsComponent implements OnInit {
   @Input() content!: string;
   @Input() commentId!: number;
   @Input() userTag!: string;
+  @Input() postId!: any
 
   userInfos!: any;
   
