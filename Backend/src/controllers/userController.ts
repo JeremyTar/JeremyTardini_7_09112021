@@ -103,6 +103,7 @@ export async function updateUser(req: Request, res: Response, next: NextFunction
         SaveUser.email = req.body.email;
         SaveUser.bio = req.body.bio;
         SaveUser.role = req.body.role;
+        SaveUser.avatarUrl = `${req.protocol}://${req.get('host')}/images/posts/${req.file.filename}`
         // SaveUser.AvatarUrl = `${req.protocol}://`
 
         const result = await userRepository.save(SaveUser);

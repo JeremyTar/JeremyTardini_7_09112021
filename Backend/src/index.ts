@@ -27,7 +27,6 @@ const app = express()
     // .use(express.static(__dirname + '/photo'));
     app.use('/images/posts', express.static(path.join(__dirname, "Files", "posts_files"))); // dossier multer
     app.use('/images/users', express.static(path.join(__dirname, "Files", "users_files")));
-    console.log(__dirname);
 
 
 app.listen(3000, () => {

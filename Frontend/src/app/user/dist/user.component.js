@@ -57,6 +57,7 @@ var UserComponent = /** @class */ (function () {
         this.showFirstName = false;
         this.showEmail = false;
         this.showRole = false;
+        this.showAvatar = false;
         this.disableSelect = new forms_1.FormControl;
         this.haveBio = false;
         this.haveAvatar = false;
@@ -159,28 +160,30 @@ var UserComponent = /** @class */ (function () {
             _this.authStatus = _this.userService.isAuth;
             _this.router.navigate(['']);
         });
-        // this.postService.getAllpostByUser(this.user.userId)
-        //   .subscribe((data) => {
-        //     console.log(data)
-        //     this.posts = data
-        //     this.posts.forEach((elem: any) => {
-        //       this.postService.deletePost(elem.postId)
-        //         .subscribe(() => {
-        //           console.log("posts user delete")
-        //           this.userService.deleteUser(this.user.userId)
-        //             .subscribe(() => {
-        //               console.log("User completely delete")
-        //             })
-        //         })
-        //     })
-        //   })
     };
-    // modifyEmail() {
-    // }
-    // selectedFileAvatar(event: any) {
-    //   this.avatarFile = event.target.files[0];
-    //   console.log(this.avatarFile)
-    // }
+    UserComponent.prototype.modifyEmail = function () {
+    };
+    UserComponent.prototype.modifyAvatar = function () {
+        if (!this.showAvatar) {
+            this.showAvatar = true;
+        }
+        else {
+            this.showAvatar = false;
+        }
+    };
+    UserComponent.prototype.selectedFileAvatar = function (event) {
+        this.avatarFile = event.target.files[0];
+        console.log(this.avatarFile);
+    };
+    UserComponent.prototype.sendNewAvatar = function () {
+        var formdata = new FormData();
+        formdata.set("file", this.avatarFile);
+        this.userService.sendAvatarPhoto(localStorage.getItem('userId'), formdata)
+            .subscribe(function (res) {
+            console.log(res);
+        });
+        this.ngOnInit();
+    };
     UserComponent.prototype.goOnPosts = function () {
         this.router.navigate(['main']);
     };

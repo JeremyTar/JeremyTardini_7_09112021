@@ -52,12 +52,12 @@ export class PostComponent implements OnInit {
   ngOnInit(): void {
     // init attachment of post
 
-    if(this.attachement) {
+    if(this.attachement != "http://localhost:3000/images/posts/") {
       this.urlAttachment = this.attachement
     } else {
       this.urlAttachment = undefined
     }
-    
+    console.log(this.attachement)
 
     this.commentForm = this.formBuilder.group({
       content: ['', Validators.required]

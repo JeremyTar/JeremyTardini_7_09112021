@@ -27,6 +27,10 @@ export class UserService {
         return this.http.put<User>(`http://localhost:3000/api/users/${id}`, data);
     }
 
+    sendAvatarPhoto(id: string | null, formdata: FormData): Observable<object> {
+        return this.http.put("http://localhost:3000/api/users/" + id, formdata)
+    }
+
     deleteUser(id: any): Observable<object> {
         return this.http.delete(`http://localhost:3000/api/users/${id}`);
     }

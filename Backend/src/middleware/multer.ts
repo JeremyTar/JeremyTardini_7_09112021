@@ -28,7 +28,7 @@ const buildOptions = (destination: string) => {
     }
 }
 
-const folderUser = "/dist/Files/users_files";
+const folderUser = "dist/Files/users_files";
 const folderPosts = "dist/Files/posts_files";
 
 const User = multer.diskStorage(buildOptions(folderUser));

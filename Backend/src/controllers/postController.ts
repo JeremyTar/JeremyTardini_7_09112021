@@ -103,9 +103,6 @@ export async function savePost(req: Request, res: Response, next: NextFunction) 
     }
 }
 
-export async function savePostImage(req: Request, file: File, next: NextFunction) {
-
-}
 
 export async function deletePost(req: Request, res: Response, next: NextFunction) {
     try {

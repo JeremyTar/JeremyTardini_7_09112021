@@ -13,15 +13,29 @@
   <h2>My Accompt</h2>
   <mat-card class="user__info">
     <mat-card-title>Ma bio</mat-card-title>
-    <div class="d-flex">
-      <div class="user__info__avatar">
-        <!-- <img matCardAvatar *ngIf="!this.user.avatarUrl" src="../../assets/Point-interrogation.jpg"> -->
-        <!-- <img matCardAvatar *ngIf="this.user.avatarUrl" [src]="this.user.avatarUrl" /> -->
+    <div class="d-flex user__info__elements">
+      <div class="user__info__elements__avatar">
+        <div class="d-flex flex-column ">
+          <div class="d-flex flex-column ">
+            <img matCardAvatar *ngIf="!this.user.avatarUrl && !this.showAvatar" src="../../assets/Point-interrogation.jpg">
+            <img matCardAvatar *ngIf="this.user.avatarUrl && !this.showAvatar" [src]="this.user.avatarUrl" />
+            <button (click)="modifyAvatar()" class="modifyButton"><i class="fas fa-wrench"></i></button>
+        </div>
+        <form *ngIf="this.showAvatar" class="user__info__elements__avatar__form">
+          <label for="file"></label>
+          <input type="file" formControlName="attachement" name="attachement" class="form-control"
+            (change)="selectedFileAvatar($event)">
+          <button type="button" class="modifyButton" (click)="sendNewAvatar()"><i class="far fa-paper-plane"></i></button>
+        </form>
+        </div>
       </div>
-      <div class="user__info__bio">
-        <div class="user__info__bio__parution">
-          <p *ngIf="!this.haveBio">No bio here ...</p>
-          <p *ngIf="this.haveBio">{{this.user.bio}}</p>
+
+      <div class="user__info__elements__bio">
+        <div class="user__info__elements__bio__parution">
+          <p *ngIf="!this.haveBio">No bio here ...<button (click)="modifyFirstName()" class="modifyButton"><i
+                class="fas fa-wrench"></i></button></p>
+          <p *ngIf="this.haveBio">{{this.user.bio}}<button (click)="modifyFirstName()" class="modifyButton"><i
+                class="fas fa-wrench"></i></button></p>
         </div>
       </div>
     </div>
@@ -37,13 +51,12 @@
           <button (click)="modifyFirstName()" class="modifyButton"><i class="fas fa-wrench"></i></button>
         </mat-card-subtitle>
         <mat-card-content>
-        {{this.user.firstName}}
+          {{this.user.firstName}}
         </mat-card-content>
         <form *ngIf="showFirstName" (ngSubmit)="changeFirstName(firstName)" #firstName="ngForm">
           <label>Enter your firstname</label>
           <div class="d-flex">
-            <input type="text" class="form-control" id="firstName" name="firstName"
-            required ngModel>
+            <input type="text" class="form-control" id="firstName" name="firstName" required ngModel>
             <button type="submit" class="modifyButton"><i class="far fa-paper-plane"></i></button>
           </div>
         </form>
@@ -59,8 +72,7 @@
         <form *ngIf="showLastName" (ngSubmit)="changeLastName(lastname)" #lastname="ngForm">
           <label>Enter your lastname</label>
           <div class="d-flex">
-            <input type="text" class="form-control" id="fastName" name="lastName"
-            required ngModel>
+            <input type="text" class="form-control" id="fastName" name="lastName" required ngModel>
             <button type="submit" class="modifyButton"><i class="far fa-paper-plane"></i></button>
           </div>
         </form>

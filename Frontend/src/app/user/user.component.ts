@@ -4,6 +4,7 @@ import { UserService } from '../services/user.service';
 import { FormControl, NgForm } from '@angular/forms';
 import { PostService } from '../services/post.service';
 import { CommentService } from '../services/comment.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-user',
@@ -14,13 +15,14 @@ export class UserComponent implements OnInit {
 
   authStatus!: boolean;
   changeAvatar: boolean = false
-  avatarFile!: string;
+  avatarFile!: File;
 
   // For component
   showLastName = false;
   showFirstName = false;
   showEmail = false;
   showRole = false
+  showAvatar = false
 
   disableSelect = new FormControl;
 
@@ -131,31 +133,40 @@ export class UserComponent implements OnInit {
         this.router.navigate([''])
       })
 
-
-    // this.postService.getAllpostByUser(this.user.userId)
-    //   .subscribe((data) => {
-    //     console.log(data)
-    //     this.posts = data
-    //     this.posts.forEach((elem: any) => {
-    //       this.postService.deletePost(elem.postId)
-    //         .subscribe(() => {
-    //           console.log("posts user delete")
-    //           this.userService.deleteUser(this.user.userId)
-    //             .subscribe(() => {
-    //               console.log("User completely delete")
-    //             })
-    //         })
-    //     })
-    //   })
   }
-  // modifyEmail() {
+   modifyEmail() {
 
-  // }
+  }
 
-  // selectedFileAvatar(event: any) {
-  //   this.avatarFile = event.target.files[0];
-  //   console.log(this.avatarFile)
-  // }
+  modifyAvatar() {
+    if (!this.showAvatar) {
+      this.showAvatar = true
+    }
+    else {
+      this.showAvatar = false
+    }
+
+  }
+
+  selectedFileAvatar(event: any) {
+    this.avatarFile = event.target.files[0];
+    console.log(this.avatarFile)
+  }
+
+  sendNewAvatar() {
+    const formdata = new FormData();
+    formdata.set("file", this.avatarFile);
+    this.userService.sendAvatarPhoto(localStorage.getItem('userId'), formdata)
+      .subscribe(
+        (res) => {
+          console.log(res);
+          
+      })
+    this.ngOnInit()    
+    }
+
+
+
   goOnPosts() {
     this.router.navigate(['main'])
   }

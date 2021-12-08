@@ -13,7 +13,7 @@ export class NewPostComponent implements OnInit {
 
   NewPostForm!: FormGroup;
   postFile!: File;
-  roleSelect: string = "Work";
+  categorieSelect: string = "Work";
 
   constructor(private postService: PostService,
     private router: Router,
@@ -66,7 +66,6 @@ export class NewPostComponent implements OnInit {
 
   selectedFile(event: any) {
     this.postFile = event.target.files[0];
-    console.log(this.postFile)
   }
 
 }
