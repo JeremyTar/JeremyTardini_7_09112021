@@ -66,7 +66,6 @@ var UserComponent = /** @class */ (function () {
         return __awaiter(this, void 0, Promise, function () {
             var _this = this;
             return __generator(this, function (_a) {
-                console.log(localStorage.getItem("userId"));
                 this.userService.getUser(localStorage.getItem("userId"))
                     .subscribe(function (data) {
                     _this.user = data;
@@ -153,21 +152,28 @@ var UserComponent = /** @class */ (function () {
                 });
             });
         });
-        this.postService.getAllpostByUser(this.user.userId)
-            .subscribe(function (data) {
-            console.log(data);
-            _this.posts = data;
-            _this.posts.forEach(function (elem) {
-                _this.postService.deletePost(elem.postId)
-                    .subscribe(function () {
-                    console.log("posts user delete");
-                    _this.userService.deleteUser(_this.user.userId)
-                        .subscribe(function () {
-                        console.log("User completely delete");
-                    });
-                });
-            });
+        this.userService.deleteUser(this.user.userId)
+            .subscribe(function () {
+            console.log("User completely delete");
+            _this.userService.signOut();
+            _this.authStatus = _this.userService.isAuth;
+            _this.router.navigate(['']);
         });
+        // this.postService.getAllpostByUser(this.user.userId)
+        //   .subscribe((data) => {
+        //     console.log(data)
+        //     this.posts = data
+        //     this.posts.forEach((elem: any) => {
+        //       this.postService.deletePost(elem.postId)
+        //         .subscribe(() => {
+        //           console.log("posts user delete")
+        //           this.userService.deleteUser(this.user.userId)
+        //             .subscribe(() => {
+        //               console.log("User completely delete")
+        //             })
+        //         })
+        //     })
+        //   })
     };
     // modifyEmail() {
     // }

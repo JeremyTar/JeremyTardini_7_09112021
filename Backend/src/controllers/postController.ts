@@ -46,7 +46,7 @@ export async function sendPost(req: Request, res: Response, next: NextFunction) 
         NewPost.dislikes = []
         NewPost.createdUserId = req.body.createdUserId;
         // NewPost.user = req.body.createdUserId
-        // NewPost.attachement = `${req.protocol}://${req.get('host')}/posts_images/${req.file.filename}`           
+        NewPost.attachement = `${req.protocol}://${req.get('host')}/images/posts/${req.body.attachement}`           
         const result = await repository.save(NewPost);
         res.send(result);
     }

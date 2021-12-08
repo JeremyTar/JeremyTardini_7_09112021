@@ -14,7 +14,9 @@
       </mat-card-subtitle>
     </div>
     <div>
-      <img mat-card-image class="img-card d-flex align-items-self" [src]="attachement">
+      <div *ngIf="urlAttachment" class="post__card__photo" id="divPhotoPost">
+        <img *ngIf="urlAttachment" [src]="this.urlAttachment" id="photoPost">
+      </div>
       <mat-card-content>
         <p class="text-center">{{ content }}</p>
         <div class="d-flex posts__card__like">
@@ -53,7 +55,7 @@
           </form>
       </div>
       <button *ngIf="showComments" mat-raised-button aria-label="open signin form" class="btn--mid m-auto"
-        id="buttoncomment" (click)="openComments()">Close comments<mat-icon>filter_list</mat-icon></button>
+        id="buttoncomment" (click)="closeComment()">Close comments<mat-icon>filter_list</mat-icon></button>
     </div>
     
 </mat-card>

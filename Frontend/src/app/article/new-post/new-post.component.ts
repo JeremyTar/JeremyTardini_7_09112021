@@ -25,19 +25,28 @@ export class NewPostComponent implements OnInit {
       title: ['', Validators.required],
       content: ['', Validators.required],
       categorie: ['', Validators.required],
+      attachement: ['']
     });
   }
 
   onSubmit() {
     const Newpost = this.NewPostForm.value;
-    console.log(Newpost)
-    let user = localStorage.getItem("userId")
-    console.log(user)
-    Newpost.createdUserId = user
-    console.log(Newpost)
+    if (this.postFile) {
+      const formdata = new FormData();
+      formdata.set("file", this.postFile);
+      Newpost.attachement = this.postFile.name
+      this.postService.sendPostPhoto(formdata)
+      .subscribe(
+        (res) => console.log(res),
+        (err) => console.log(err)
+      )    
+    }
+    const user = localStorage.getItem("userId");
+    Newpost.createdUserId = user;
+    console.log(Newpost);
     this.postService.sendPost(Newpost)
       .subscribe((data) => {
-        console.log(data)
+        console.log(data);
         this.articleComponent.newPost = false;
         this.articleComponent.ngOnInit();
       })
@@ -47,7 +56,7 @@ export class NewPostComponent implements OnInit {
   addPictureToData() {
     const fd = new FormData();
     fd.set("file", this.postFile)
-    localStorage.setItem("photo", JSON.stringify(fd))
+
     this.postService.sendPostPhoto(fd)
       .subscribe(
         (res) => console.log(res),

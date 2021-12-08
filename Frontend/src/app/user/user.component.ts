@@ -37,7 +37,6 @@ export class UserComponent implements OnInit {
     private commentService: CommentService) { }
 
   async ngOnInit(): Promise<void> {
-    console.log(localStorage.getItem("userId"));
     this.userService.getUser(localStorage.getItem("userId"))
       .subscribe(data => {
         this.user = data
@@ -113,34 +112,41 @@ export class UserComponent implements OnInit {
   // }
 
   deleteAccompte() {
-
     this.commentService.getAllCommentsByUser(this.user.userId)
       .subscribe((data) => {
-        console.log(data)
-        this.comments = data
-        this.comments.forEach((elem: any) => {
-          this.commentService.deleteComments(elem.commentId)
-            .subscribe(() => {
-              console.log("comments user delete")
+         console.log(data)
+         this.comments = data
+         this.comments.forEach((elem: any) => {
+           this.commentService.deleteComments(elem.commentId)
+             .subscribe(() => {
+               console.log("comments user delete")
+             })
+         });
+       })
+    this.userService.deleteUser(this.user.userId)
+      .subscribe(() => {
+        console.log("User completely delete")
+        this.userService.signOut()
+        this.authStatus = this.userService.isAuth;
+        this.router.navigate([''])
+      })
 
-            })
-        });
-      })
-    this.postService.getAllpostByUser(this.user.userId)
-      .subscribe((data) => {
-        console.log(data)
-        this.posts = data
-        this.posts.forEach((elem: any) => {
-          this.postService.deletePost(elem.postId)
-            .subscribe(() => {
-              console.log("posts user delete")
-              this.userService.deleteUser(this.user.userId)
-                .subscribe(() => {
-                  console.log("User completely delete")
-                })
-            })
-        })
-      })
+
+    // this.postService.getAllpostByUser(this.user.userId)
+    //   .subscribe((data) => {
+    //     console.log(data)
+    //     this.posts = data
+    //     this.posts.forEach((elem: any) => {
+    //       this.postService.deletePost(elem.postId)
+    //         .subscribe(() => {
+    //           console.log("posts user delete")
+    //           this.userService.deleteUser(this.user.userId)
+    //             .subscribe(() => {
+    //               console.log("User completely delete")
+    //             })
+    //         })
+    //     })
+    //   })
   }
   // modifyEmail() {
 

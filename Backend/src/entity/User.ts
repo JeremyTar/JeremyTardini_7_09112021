@@ -37,4 +37,10 @@ export class User {
      })
     @JoinColumn()
     posts: Post[];
+
+    @OneToMany((type) => Comment, comment => comment.user, {
+        cascade :true,
+     })
+    @JoinColumn()
+    comments: Comment[];
 }

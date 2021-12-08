@@ -1,9 +1,11 @@
 <li class="m-auto mb-2">
     <mat-card class="comment">
-        <mat-card-subtitle><h4>{{ userInfos.firstName + " " + userInfos.lastName}}</h4></mat-card-subtitle>
+        <mat-card-subtitle><h4>{{ this.firstName + " " + this.lastName}}</h4></mat-card-subtitle>
     <mat-card-content>
     <p>{{content}}</p>    
     </mat-card-content>
+    <button *ngIf=" this.currentUtilisator || this.isAdmin" (click)="deleteComment()" class="modifybutton"><i class="fa fa-trash"
+      aria-hidden="true"></i></button>
   </mat-card>   
 </li>
 

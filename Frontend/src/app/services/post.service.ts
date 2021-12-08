@@ -34,7 +34,7 @@ export class PostService {
     return this.http.get(`http://localhost:3000/api/posts/${id}`)
   }
 
-  sendPost(content: Post) {
+  sendPost(content: Post): Observable<object> {
     return this.http.post('http://localhost:3000/api/posts', content);
   }
 

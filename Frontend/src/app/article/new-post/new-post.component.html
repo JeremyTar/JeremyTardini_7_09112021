@@ -1,6 +1,6 @@
 <mat-card class="col-10 m-auto">
     <div>
-      <form [formGroup]="NewPostForm">
+      <form [formGroup]="NewPostForm" enctype="multipart/form-data">
         <div class="form-group">
           <label for="title">Nom du post</label>
           <input type="text" id="title" formControlName="title" class="form-control" required>
@@ -18,7 +18,6 @@
           </select>
           <label for="file">Média</label>
           <input type="file" formControlName="attachement" name="attachement" class="form-control" (change)="selectedFile($event)">
-          <button type="submit" (click)="addPictureToData()">envoie photo</button>
         </div>
         <button mat-raised-button aria-label="open signin form" class="btn--mid" type="submit" (click)="onSubmit()" [disabled]="NewPostForm.invalid">New post !</button>
       </form>

@@ -12,7 +12,7 @@
   <div class="row align-self-center">
     <ul class='list-group p-0'>
       <app-post *ngFor="let post of posts" [postId]="post.postId" [title]="post.title" [attachement]="post.attachement" [content]="post.content"
-        [categorie]="post.categorie" [likes]="post.likes" [dislikes]="post.dislikes" [createdUserId]="post.createdUserId">
+        [categorie]="post.categorie" [likes]="post.likes" [dislikes]="post.dislikes" [createdUserId]="post.createdUserId" [attachement]="post.attachement">
       </app-post>
     </ul>
   </div>

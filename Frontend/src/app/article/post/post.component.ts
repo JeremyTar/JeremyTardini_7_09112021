@@ -3,7 +3,7 @@ import { CommentService } from 'src/app/services/comment.service';
 import { UserService } from 'src/app/services/user.service';
 import { PostService } from 'src/app/services/post.service';
 import { ArticleComponent } from '../article.component';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -36,6 +36,7 @@ export class PostComponent implements OnInit {
   userNamePost!: any;
   firstName!: string;
   lastName!: string;
+  urlAttachment!: string | undefined;
 
   LocalUserInformations!: any;
   isAdmin!: boolean;
@@ -49,11 +50,18 @@ export class PostComponent implements OnInit {
     private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    // init attachment of post
 
+    if(this.attachement) {
+      this.urlAttachment = this.attachement
+    } else {
+      this.urlAttachment = undefined
+    }
+    
 
     this.commentForm = this.formBuilder.group({
       content: ['', Validators.required]
-    
+
     })
     // get informations
     const UserId = localStorage.getItem('userId')
@@ -99,12 +107,12 @@ export class PostComponent implements OnInit {
   // Open / CLose comments
 
   openComments() {
-      this.commentService.getAllCommentsOfPost(this.postId)
-        .subscribe((data) => {
-          this.comments = data;
-          this.comments.reverse()
-          this.showComments = true
-        })      
+    this.commentService.getAllCommentsOfPost(this.postId)
+      .subscribe((data) => {
+        this.comments = data;
+        this.comments.reverse()
+        this.showComments = true
+      })
   }
 
   closeComment() {
@@ -113,12 +121,16 @@ export class PostComponent implements OnInit {
 
   AddComment() {
     const formValue = this.commentForm.value;
-    console.log(formValue)
-    formValue.userTag = localStorage.getItem('userId')
-    this.commentService.sendComment(this.postId, formValue)
-    .subscribe(() => {
-    this.openComments()
-    })
+    if (formValue) {
+      formValue.userTag = localStorage.getItem('userId')
+      this.commentService.sendComment(this.postId, formValue)
+        .subscribe(() => {
+          this.openComments()
+        })
+    }
+    else {
+      console.log("veuillez rentré un commentaire")
+    }
   }
 
   // Option Like
