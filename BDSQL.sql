@@ -26,9 +26,10 @@ CREATE TABLE IF NOT EXISTS `groupomania`.`user` (
   `lastName` VARCHAR(20) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
   `isAdmin` TINYINT NOT NULL DEFAULT '0',
-  `role` VARCHAR(20) NOT NULL DEFAULT '',
-  `bio` VARCHAR(255) NOT NULL DEFAULT '',
+  `role` VARCHAR(20) NULL DEFAULT NULL,
   `email` VARCHAR(50) NOT NULL,
+  `bio` VARCHAR(255) NULL DEFAULT NULL,
+  `avatarUrl` VARCHAR(255) NULL DEFAULT NULL,
   PRIMARY KEY (`userId`),
   UNIQUE INDEX `IDX_e12875dfb3b1d92d7d7c5377e2` (`email` ASC) VISIBLE)
 ENGINE = InnoDB
@@ -41,20 +42,22 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `groupomania`.`post` (
   `postId` INT NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(20) NOT NULL,
-  `content` VARCHAR(255) NOT NULL,
-  `attachement` VARCHAR(150) NOT NULL DEFAULT '',
-  `like` INT NOT NULL DEFAULT '0',
-  `dislike` INT NOT NULL DEFAULT '0',
-  `categorie` VARCHAR(20) NOT NULL DEFAULT '',
+  `categorie` VARCHAR(20) NOT NULL,
+  `attachement` VARCHAR(255) NULL DEFAULT NULL,
+  `content` TEXT NOT NULL,
+  `createdUserId` VARCHAR(255) NOT NULL,
+  `likes` TEXT NOT NULL,
+  `dislikes` TEXT NOT NULL,
+  `title` VARCHAR(100) NOT NULL,
   `userUserId` VARCHAR(36) NULL DEFAULT NULL,
   PRIMARY KEY (`postId`),
   INDEX `FK_383f47c98d6fc3e18786e00ed41` (`userUserId` ASC) VISIBLE,
   CONSTRAINT `FK_383f47c98d6fc3e18786e00ed41`
     FOREIGN KEY (`userUserId`)
-    REFERENCES `groupomania`.`user` (`userId`))
+    REFERENCES `groupomania`.`user` (`userId`)
+    ON DELETE CASCADE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 14
+AUTO_INCREMENT = 97
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -65,6 +68,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 CREATE TABLE IF NOT EXISTS `groupomania`.`comment` (
   `content` VARCHAR(255) NOT NULL,
   `commentId` INT NOT NULL AUTO_INCREMENT,
+  `userTag` VARCHAR(50) NOT NULL,
   `postPostId` INT NULL DEFAULT NULL,
   `userUserId` VARCHAR(36) NULL DEFAULT NULL,
   PRIMARY KEY (`commentId`),
@@ -72,12 +76,14 @@ CREATE TABLE IF NOT EXISTS `groupomania`.`comment` (
   INDEX `FK_1a0a9c69d17cfb196d090858bc8` (`userUserId` ASC) VISIBLE,
   CONSTRAINT `FK_1a0a9c69d17cfb196d090858bc8`
     FOREIGN KEY (`userUserId`)
-    REFERENCES `groupomania`.`user` (`userId`),
+    REFERENCES `groupomania`.`user` (`userId`)
+    ON DELETE CASCADE,
   CONSTRAINT `FK_58c08bd38052e10706d3b4ae89a`
     FOREIGN KEY (`postPostId`)
-    REFERENCES `groupomania`.`post` (`postId`))
+    REFERENCES `groupomania`.`post` (`postId`)
+    ON DELETE CASCADE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 5
+AUTO_INCREMENT = 92
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
