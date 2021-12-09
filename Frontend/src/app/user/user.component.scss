@@ -1,66 +1,90 @@
 header{
-    background-color: violet;
+    background-color: #424242;
     margin-bottom: 25px;
-    a{
-        text-decoration: none;
-    }
+    box-shadow: 0px 5px 10px 1px rgba(0,0,0,0.75);
     nav {
-        a{
-            display: block;
-            margin: auto 0;
-        }
         display: flex;
         justify-content: space-evenly;
-        img{
-            margin: 0;
-            width: 50px;
-            height: 50px;
-            border-radius: 50px;
-            border: inset 2px #424242;
-            position: relative;
-            top: 25px;
+        button {
+            background-color: rgb(255, 252, 252);
+            margin-bottom: 10px;
+            font-size: 1.5em;
+            box-shadow: 5px 5px 10px 5px rgba(0,0,0,0.25);
+            border: 3px ridge rgb(255, 215, 215);
         }
     }
 }
 
+.tittle {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-size: 1.5em;
+}
+
+.mat-card{
+    box-shadow: 0px 5px 10px 1px rgba(0,0,0,0.75);
+}
 
 .user__info {
     width: 100%;
     margin-bottom: 10px;
-    &__elements {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        &__avatar {
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    
+    &__avatar {
+        width: 275px;
+        &__pictures {
+            width: 100%;
             display: flex;
+            flex-direction: column;
             justify-content: center;
-            width: 250px;
-            img{
-                width: 125px;
-                height: 125px;
-                border-radius: 100%;
+            align-items: center;
+            img {
+                width: 175px;
+                height: 175px;
             }
-            &__form {
-                margin: 5px;
-            }
-        }
-        &__bio {
-            width: 80%;
-            min-width: 300px;
-            height: 80%;
-            &__parution {
-                height: 125px;
-                width: 100%;
-                background-color: rgb(255, 252, 252);
-                p{
-                    color: black;
-                    width: 100%;
-                    margin: 0;
-                    height: 100%;
-                }
+            button {
+                width: 30px;
             }
         }
-    }  
+    }
+    &__bio {
+        width: 275px;
+        padding: 10px;
+        border:2px ridge rgb(255, 215, 215);
+        border-radius: 5px;
+        box-shadow: 5px 5px 10px 5px rgba(0,0,0,0.25);
+    }
+}
+
+.user__personnal {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin: 10px;
+    &__items {
+        width: 200px;
+        margin: 10px;
+        padding: 10px;
+        border: 2px ridge rgb(255, 215, 215);
+        border-radius: 5px;
+        box-shadow: 5px 5px 10px 5px rgba(0,0,0,0.25);
+    }
+
+}
+
+.user__account {
+    margin-bottom: 20px;
+    &__buttons {
+        display: flex;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+        padding: 10px;
+        button {
+            margin: 5px;
+        }
+    }
 }
 
 
@@ -70,7 +94,26 @@ header{
     background-color: transparent;
     color: #F44336;
     border: none;
+    margin: 0;
+    padding: 0
+}
+.change {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
+.iconBioInput {
+    margin-top: 10px;
+    width: 75px;
+    button{
+        margin-right: 10px;
+    }
+
+}
+
+.size {
+    font-size: 1.2em;
+}
 
 

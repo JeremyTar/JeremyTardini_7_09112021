@@ -103,7 +103,9 @@ export async function updateUser(req: Request, res: Response, next: NextFunction
         SaveUser.email = req.body.email;
         SaveUser.bio = req.body.bio;
         SaveUser.role = req.body.role;
+        if (req.file) {
         SaveUser.avatarUrl = `${req.protocol}://${req.get('host')}/images/posts/${req.file.filename}`
+        }
         // SaveUser.AvatarUrl = `${req.protocol}://`
 
         const result = await userRepository.save(SaveUser);
@@ -123,13 +125,10 @@ export async function newPassword(req: Request, res: Response, next: NextFunctio
 
         const userRepository = await getConnection().getRepository(User);
         const user = await userRepository.findOne(req.params.id);
-        console.log(user)
-        console.log(req.params.id)
         let compare = await bcrypt.compare(req.body.oldPassword, user.password)
         if (compare) {
             let hash = await bcrypt.hash(req.body.newPassword, 10);
             user.password = hash;
-            console.log(user.password)
             const result = userRepository.save(user);
             res.send(result);
         }
@@ -142,6 +141,24 @@ export async function newPassword(req: Request, res: Response, next: NextFunctio
     }
 }
 
+export async function newEmail(req: Request, res: Response, next: NextFunction) {
+    try {
+        const userRepository = await getConnection().getRepository(User);
+        const user = await userRepository.findOne(req.params.id);
+        let compare = await bcrypt.compare(req.body.oldPassword, user.password)
+        if (compare) {
+            user.email = req.body.email;
+            const result = userRepository.save(user);
+            res.send(result);
+        }
+        else {
+            return res.status(401).json({ error: 'Mot de passe incorrect !' });
+        }
+    }
+    catch (err) {
+        return next(err);
+    }
+}
 
 // FUNCTION DELETE USER
 

@@ -3,3 +3,4 @@
 /Backend/dist
 /Backend/.env
 /Backend/ormconfig.json
+.vscode

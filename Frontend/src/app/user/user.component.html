@@ -1,5 +1,5 @@
 <header>
-  <h1 class="text-center">Groupomania</h1>
+  <h1 class="text-center m-0"><img src="../../assets/icon-above-font-transparent.png"></h1>
   <nav>
     <button class='btn' (click)="goOnPosts()"><i class="fas fa-comment-alt"></i></button>
     <!-- <button *ngIf="!newPost" id="newPost" (click)="openNewPost()">Ajouter un Post</button>
@@ -9,86 +9,96 @@
 </header>
 
 
-<main class="container col-lg-6 col-md-8">
-  <h2>My Accompt</h2>
-  <mat-card class="user__info">
-    <mat-card-title>Ma bio</mat-card-title>
-    <div class="d-flex user__info__elements">
-      <div class="user__info__elements__avatar">
-        <div class="d-flex flex-column ">
-          <div class="d-flex flex-column ">
-            <img matCardAvatar *ngIf="!this.user.avatarUrl && !this.showAvatar" src="../../assets/Point-interrogation.jpg">
+<main class="container col-12 col-lg-6 col-md-8">
+  <h2 class="tittle">My Account</h2>
+
+
+  <mat-card class="mb-3">
+    <mat-card-title>Me</mat-card-title>
+    <div class="d-flex user__info">
+      <div class="user__info__avatar">
+        <div class="d-flex flex-column align-items-self">
+          <div class="user__info__avatar__pictures">
+            <img matCardAvatar *ngIf="!this.user.avatarUrl && !this.showAvatar"
+              src="../../assets/Point-interrogation.jpg">
             <img matCardAvatar *ngIf="this.user.avatarUrl && !this.showAvatar" [src]="this.user.avatarUrl" />
-            <button (click)="modifyAvatar()" class="modifyButton"><i class="fas fa-wrench"></i></button>
+            <button (click)="modifyAvatar()" class="modifyButton"><i class="fas fa-wrench m-2"></i></button>
+          </div>
+          <form *ngIf="this.showAvatar" class="user__info__avatar__form">
+            <div class="d-flex">
+              <input type="file" formControlName="attachement" name="attachement" class="form-control"
+                (change)="selectedFileAvatar($event)">
+              <button type="button" class="modifyButton m-2" (click)="sendNewAvatar()"><i
+                  class="far fa-paper-plane"></i></button>
+            </div>
+          </form>
         </div>
-        <form *ngIf="this.showAvatar" class="user__info__elements__avatar__form">
-          <label for="file"></label>
-          <input type="file" formControlName="attachement" name="attachement" class="form-control"
-            (change)="selectedFileAvatar($event)">
-          <button type="button" class="modifyButton" (click)="sendNewAvatar()"><i class="far fa-paper-plane"></i></button>
+      </div>
+
+      <div class="user__info__bio">
+        <div *ngIf="!this.showBio" class="user__info__elements__bio__parution">
+          <p *ngIf="!this.haveBio" class="overflow-auto">No bio here ...</p>
+          <p *ngIf="this.haveBio" class="overflow-auto">{{this.user.bio}}</p>
+          <button *ngIf="!showBio" (click)="modifyBio()" class="modifyButton"><i class="fas fa-wrench"></i></button>
+        </div>
+        <form *ngIf="showBio" (ngSubmit)="changeBio(bioForm)" #bioForm="ngForm">
+          <input type="text" class="form-control" id="bio" name="bio" placeholder="enter your biographie..." required
+            ngModel>
+          <div class="iconBioInput">
+            <button type="submit" class="modifyButton"><i class="far fa-paper-plane"></i></button>
+            <button *ngIf="showBio" (click)="modifyBio()" class="modifyButton"><i class="fas fa-wrench"></i></button>
+          </div>
         </form>
-        </div>
       </div>
 
-      <div class="user__info__elements__bio">
-        <div class="user__info__elements__bio__parution">
-          <p *ngIf="!this.haveBio">No bio here ...<button (click)="modifyFirstName()" class="modifyButton"><i
-                class="fas fa-wrench"></i></button></p>
-          <p *ngIf="this.haveBio">{{this.user.bio}}<button (click)="modifyFirstName()" class="modifyButton"><i
-                class="fas fa-wrench"></i></button></p>
-        </div>
-      </div>
+
     </div>
-
   </mat-card>
 
-  <mat-card class="user__personnal mb-2">
+  <mat-card class=" mb-3">
     <mat-card-title>Personnal informations</mat-card-title>
-    <div class="d-flex justify-content-around">
-      <div class="user__personnal__firstname">
+    <div class="user__personnal">
+      <div class="user__personnal__items">
         <mat-card-subtitle>
           First Name
           <button (click)="modifyFirstName()" class="modifyButton"><i class="fas fa-wrench"></i></button>
         </mat-card-subtitle>
-        <mat-card-content>
+        <mat-card-content class="size">
           {{this.user.firstName}}
         </mat-card-content>
         <form *ngIf="showFirstName" (ngSubmit)="changeFirstName(firstName)" #firstName="ngForm">
-          <label>Enter your firstname</label>
           <div class="d-flex">
-            <input type="text" class="form-control" id="firstName" name="firstName" required ngModel>
+            <input matInput type="text" class="form-control" id="firstName" name="firstName" required ngModel>
             <button type="submit" class="modifyButton"><i class="far fa-paper-plane"></i></button>
           </div>
         </form>
       </div>
-      <div class="user__personnal__lastname">
+      <div class="user__personnal__items">
         <mat-card-subtitle>
           Last Name
           <button (click)="modifyLastName()" class="modifyButton"><i class="fas fa-wrench"></i></button>
         </mat-card-subtitle>
-        <mat-card-content>
+        <mat-card-content class="size">
           {{ user.lastName }}
         </mat-card-content>
         <form *ngIf="showLastName" (ngSubmit)="changeLastName(lastname)" #lastname="ngForm">
-          <label>Enter your lastname</label>
           <div class="d-flex">
-            <input type="text" class="form-control" id="fastName" name="lastName" required ngModel>
+            <input matInput type="text" class="form-control" id="fastName" name="lastName" required ngModel>
             <button type="submit" class="modifyButton"><i class="far fa-paper-plane"></i></button>
           </div>
         </form>
       </div>
-      <div class="user__personnal__role">
+      <div class="user__personnal__items">
         <mat-card-subtitle>
           Role
           <button class="modifyButton" (click)="modifyRole()"><i class="fas fa-wrench"></i></button>
         </mat-card-subtitle>
-        <mat-card-content>
-          <p *ngIf="!user.role">No role yet ...</p>
+        <p *ngIf="!user.role">No role yet ...</p>
+        <mat-card-content class="size">
           <p>{{ user.role }}</p>
         </mat-card-content>
         <mat-card-content>
           <form *ngIf="showRole" (ngSubmit)="changeRole(role)" #role="ngForm">
-            <label for="role">Choose your role</label>
             <div class="d-flex">
               <select class="form-control" name="role" id="role" ngModel required>
                 <option value="Marketing">Marketing</option>
@@ -103,12 +113,84 @@
     </div>
   </mat-card>
 
-  <mat-card class="user__accompt">
+  <mat-card class=" mb-3 user__account">
     <mat-card-title>Accompt informations</mat-card-title>
     <div>
-      <button type="submit" (click)="deleteAccompte()">Delete your accompt</button>
-      <!-- <button type="submit" (click)="showPassword()">Change your password</button>
-      <button type="submit" (click)="modifyEmail()">Change your email</button> -->
+      <div class="d-flex justify-content-around flex-warp user__account__buttons">
+        <button mat-raised-button type="submit" (click)="showPasswordForm()">Change your password</button>
+        <button mat-raised-button type="submit" (click)="modifyEmail()">Change your email</button>
+        <button mat-raised-button color="warn" type="submit" (click)="deleteAccompte()">Delete your accompt</button>
+      </div>
+      <div class='user__account__passwordForm'>
+        <form class="container-login password__form col-12" [formGroup]="passwordForm" (ngSubmit)="changePassword()"
+          *ngIf="showPassword">
+          <div class="user__account__passwordForm__input d-flex justify-content-around flex-wrap">
+
+            <mat-form-field appearance="fill">
+              <mat-label>Enter your old password</mat-label>
+              <input matInput [type]="hide1 ? 'text' : 'password'" class="form-control" id="oldPassword"
+                formControlName="oldPassword" required>
+              <button mat-icon-button matSuffix (click)="hide1 = !hide1;$event.preventDefault()"
+                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide1">
+                <mat-icon>
+                  {{hide1 ? 'visibility' : 'visibility_off'}}
+                </mat-icon>
+              </button>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Enter your new password</mat-label>
+              <input matInput [type]="hide2 ? 'text' : 'password'" class="form-control" id="password"
+                formControlName="newPassword" required>
+              <button mat-icon-button matSuffix (click)="hide2 = !hide2;$event.preventDefault()"
+                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2">
+                <mat-icon>
+                  {{hide2 ? 'visibility' : 'visibility_off'}}
+                </mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+          <div class="auth__form__login">
+            <button class="auth__form__login__button" aria-label="submit" class="btn--lg" mat-raised-button
+              type="submit" [disabled]="passwordForm.invalid">
+              Change passeword
+            </button>
+            <p class="text-danger" *ngIf="errorMsg">Veuillez remplir le formulaire</p>
+          </div>
+        </form>
+      </div>
+
+      <div class='user__account__emailForm'>
+        <form class="container-login password__form col-12" [formGroup]="emailForm" (ngSubmit)="changeEmail()"
+          *ngIf="showEmail">
+          <div class="password__form__input d-flex justify-content-around flex-wrap">
+
+            <mat-form-field appearance="fill">
+              <mat-label>Enter your new email</mat-label>
+              <input matInput type="email" class="form-control" id="email" formControlName="email" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Enter your password</mat-label>
+              <input matInput [type]="hide3 ? 'text' : 'password'" class="form-control" id="password"
+                formControlName="oldPassword" required>
+              <button mat-icon-button matSuffix (click)="hide3 = !hide2;$event.preventDefault()"
+                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide3">
+                <mat-icon>
+                  {{hide3 ? 'visibility' : 'visibility_off'}}
+                </mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+          <div class="change">
+            <button class="change__button" aria-label="submit" class="btn--lg" mat-raised-button type="submit"
+              [disabled]="emailForm.invalid">
+              Change email
+            </button>
+            <p class="text-danger" *ngIf="errorMsg">Wrong password</p>
+          </div>
+        </form>
+      </div>
     </div>
   </mat-card>
 </main>

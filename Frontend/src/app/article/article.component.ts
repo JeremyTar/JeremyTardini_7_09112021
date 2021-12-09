@@ -19,6 +19,7 @@ export class ArticleComponent implements OnInit {
 
   
   ngOnInit(): any {
+  this.authStatus = this.userService.isAuth;
   this.newPost = this.PostService.showNewPost;
   this.PostService.getAllpost()
   .subscribe((data) => {
