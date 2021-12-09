@@ -45,8 +45,7 @@ export async function sendPost(req: Request, res: Response, next: NextFunction) 
         NewPost.likes = []
         NewPost.dislikes = []
         NewPost.createdUserId = req.body.createdUserId;
-        // NewPost.user = req.body.createdUserId
-        NewPost.attachement = `${req.protocol}://${req.get('host')}/images/posts/${req.body.attachement}`           
+        NewPost.attachement = `${req.protocol}://${req.get('host')}/images/posts/${req.body.attachement}`         
         const result = await repository.save(NewPost);
         res.send(result);
     }
@@ -91,10 +90,8 @@ export async function savePost(req: Request, res: Response, next: NextFunction) 
         const repository = getConnection().getRepository(Post);
         const UpdatePost = await repository.findOne(req.params.id);
         UpdatePost.title = req.body.title;
-        UpdatePost.content = req.body.content;
-        // UpdatePost.attachement = `${req.protocol}://${req.get('host')}/posts_images/${req.file.filename}`             
+        UpdatePost.content = req.body.content;          
         UpdatePost.categorie = req.body.categorie;
-        // UpdatePost.user = req.body.createdUserId
         const result = await repository.save(UpdatePost);
         res.send(result);
     }

@@ -39,16 +39,6 @@ export class CommentsComponent implements OnInit {
         this.currentUtilisator = true
       }
     })
-    // if (this.userTag == localStorage.getItem('userId')) {
-    //   this.currentUtilisator = true
-    // }
-    // else {
-    //   this.currentUtilisator = false
-    // }
-    // if (this.userInfos.isAdmin) {
-
-    // }
-
   }
 
   deleteComment() {

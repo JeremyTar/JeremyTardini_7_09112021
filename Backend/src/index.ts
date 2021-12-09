@@ -2,6 +2,8 @@ import * as express from 'express';
 import * as cors from 'cors';
 import * as path from 'path';
 import * as dotenv from 'dotenv'
+import * as helmet from "helmet"
+import * as xss from "xss-clean"
 
 import { UserRouter } from './routes/userRoute'
 import { PostRouter } from './routes/postRoute';
@@ -23,9 +25,10 @@ const app = express()
     .use('/api', UserRouter)
     .use('/api', PostRouter)
     .use('/api', CommentRouter)
+    .use(helmet());
+    app.use(xss())
 
-    // .use(express.static(__dirname + '/photo'));
-    app.use('/images/posts', express.static(path.join(__dirname, "Files", "posts_files"))); // dossier multer
+    app.use('/images/posts', express.static(path.join(__dirname, "Files", "posts_files")));
     app.use('/images/users', express.static(path.join(__dirname, "Files", "users_files")));
 
 

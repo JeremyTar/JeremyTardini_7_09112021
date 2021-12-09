@@ -16,7 +16,7 @@ export class Comment {
     @ManyToOne(type => Post, post => post.comments, {
         onDelete: 'CASCADE',
     })
-    post: number;
+    post: any;
 
     @ManyToOne(type => User, user => user.comments, {
         onDelete: 'CASCADE',

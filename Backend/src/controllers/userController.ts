@@ -104,7 +104,7 @@ export async function updateUser(req: Request, res: Response, next: NextFunction
         SaveUser.bio = req.body.bio;
         SaveUser.role = req.body.role;
         if (req.file) {
-        SaveUser.avatarUrl = `${req.protocol}://${req.get('host')}/images/posts/${req.file.filename}`
+        SaveUser.avatarUrl = `${req.protocol}://${req.get('host')}/images/users/${req.file.filename}`
         }
         // SaveUser.AvatarUrl = `${req.protocol}://`
 
