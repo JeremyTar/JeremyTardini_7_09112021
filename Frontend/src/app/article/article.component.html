@@ -1,9 +1,9 @@
 <header>
-  <h1 class="text-center">Groupomania</h1>
+  <h1 class="text-center"><img src="../../assets/icon-above-font-transparent.png"></h1>
   <nav>
     <button class='btn' (click)="goOnUser()"><i class="fas fa-user"></i></button>
-    <button *ngIf="!newPost" id="newPost" (click)="openNewPost()">Ajouter un Post</button>
-    <button *ngIf="newPost" id="newPost" (click)="hideNewPost()">Fermer le nouveau post</button>
+    <button *ngIf="!newPost" id="newPost" (click)="openNewPost()"><i class="fas fa-paper-plane"></i></button>
+    <button *ngIf="newPost" id="newPost" (click)="hideNewPost()"><i class="fas fa-paper-plane"></i></button>
     <button class='btn' (click)="userDeconnexion()"><i class="fas fa-power-off"></i></button>
   </nav>
 </header>

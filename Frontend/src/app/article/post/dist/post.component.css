@@ -1,0 +1,130 @@
+#buttoncomment {
+  border: 2px ridge #F44336;
+  border-radius: 50px;
+  background: #FFFCFC;
+  color: #424242;
+  display: flex;
+  justify-content: center;
+}
+
+li {
+  list-style: none;
+}
+
+.posts__info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.posts__info__title {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+}
+.posts__info__title h3 {
+  font-size: 1.2em;
+}
+.posts__info__title__button {
+  display: flex;
+  justify-content: center;
+}
+
+#divPhotoPost {
+  width: 80%;
+  height: auto;
+  max-height: 300px;
+  display: flex;
+  margin: auto;
+  justify-content: center;
+}
+#divPhotoPost #photoPost {
+  min-width: 150px;
+  max-width: 550px;
+  object-fit: cover;
+  image-rendering: pixelated;
+}
+
+.post__content {
+  margin: auto;
+  padding-top: 10px;
+  width: 80%;
+}
+
+.posts__like {
+  width: 250px;
+  margin: auto;
+  display: flex;
+  justify-content: space-evenly;
+  color: #ffd7d7;
+  font-size: 1.5em;
+}
+.posts__like p {
+  margin: 5px;
+}
+.posts__like__button {
+  background-color: transparent;
+  border: none;
+}
+.posts__like__button i {
+  color: #ffd7d7;
+}
+
+.comments {
+  width: 100%;
+}
+.comments__form {
+  border: 5px white;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+.comments__form__size {
+  width: 100%;
+  max-width: 700px;
+  margin-top: 10px;
+}
+.comments__form__button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.comments__form__button button {
+  background-color: #fffcfc;
+  border-radius: 25px;
+  border: 2px ridge #F44336;
+  margin: 20px;
+}
+.comments__form__button button i {
+  color: #F44336;
+  font-size: 1.4em;
+}
+.comments__form__input {
+  width: 100%;
+  height: 125px;
+  background-color: #fffcfc;
+}
+
+.card {
+  height: auto;
+}
+.card h3 {
+  font-weight: 500;
+}
+
+.like p {
+  padding-right: 10px;
+  margin: 0;
+}
+
+.modifyButton {
+  margin-left: 10px;
+  background-color: transparent;
+  color: #F44336;
+  border: none;
+  margin: 0;
+  padding: 0;
+}

@@ -11,61 +11,69 @@ li {
   list-style: none;
 }
 
-.posts__card {
-  border: 2px ridge rgb(255, 215, 215);
+.posts__info {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  &__info {
+  justify-content: center;
+  &__title {
     display: flex;
-    text-align: center;
     flex-direction: column;
+    align-content: center;
+    justify-content: center;
     h3 {
-      font-weight: 600;
-      font-size: 100%;
-      margin-bottom: 5px ;
-    }
-    button {
-      background-color: transparent;
-      border: none;
-      i {
-        color: #F44336;
-        font-size: 0.8em;
-      }
-    }
-    span {
-      font-size: 1.1em;
-      font-weight: 500;
-    }
-  }
-  &__photo {
-    min-width: 275px;
-    width: 100%;
-    height: 250px;
-    margin-bottom: 10px;
-
-
-  }
-  &__like {
-    width: 250px;
-    margin: auto;
-    display: flex;
-    justify-content: space-evenly;
-    color: rgb(255, 215, 215);
-    font-size: 1.5em;
-    p {
-      margin: 5px;
+      font-size: 1.2em;
     }
     &__button {
-      background-color: transparent;
-      border: none;
-      i {
-        color: rgb(255, 215, 215);
-      }
+      display: flex;
+      justify-content: center;
     }
   }
-  &__comments {
+}
+
+
+#divPhotoPost {
+  width: 80%;
+  height: auto;
+  max-height: 300px;
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  #photoPost {
+    min-width: 150px;
+    max-width: 550px;
+    object-fit: cover;
+    image-rendering: pixelated;
+  }
+}
+
+.post__content {
+  margin: auto;
+  padding-top: 10px;
+  width: 80%;
+}
+
+.posts__like {
+  width: 250px;
+  margin: auto;
+  display: flex;
+  justify-content: space-evenly;
+  color: rgb(255, 215, 215);
+  font-size: 1.5em;
+  p {
+    margin: 5px;
+  }
+  &__button {
+    background-color: transparent;
+    border: none;
+    i {
+      color: rgb(255, 215, 215);
+    }
+  }
+  
+}
+
+.comments {
     width: 100%;
     &__form {
       border:5px white;
@@ -101,21 +109,9 @@ li {
       }  
     }
   } 
-} 
 
-#photoPost {
-  object-fit: cover;
-  image-rendering: pixelated;
-  max-width: 100%;
-  max-height: 150px;
-}
 
-#divPhotoPost {
-  width: 100%!important;
-  height: 200px!important;
-  display: flex;
-  justify-content: center;
-}
+
 
 .card {
   height: auto;
@@ -129,4 +125,12 @@ li {
     padding-right: 10px;
     margin: 0;
   }
+}
+.modifyButton{
+  margin-left: 10px;
+  background-color: transparent;
+  color: #F44336;
+  border: none;
+  margin: 0;
+  padding: 0
 }
